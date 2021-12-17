@@ -19,6 +19,12 @@ class _BanksState extends State<Banks> {
   NavHomeController _navHomeController = Get.put(NavHomeController());
 
   @override
+  void initState() {
+    super.initState();
+    _navHomeController.fetchBanks();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -62,17 +68,19 @@ class _BanksState extends State<Banks> {
                         child: ListView.builder(
                           itemCount: _navHomeController.fetchedBankList.length,
                           itemBuilder: (_, index) {
-                            return smallBankCard(
+                            return banksCard(
                               _navHomeController.fetchedBankList[index].name,
                               int.parse(_navHomeController
                                   .fetchedBankList[index].color),
-                              Icons.ac_unit_outlined,
                               _navHomeController
                                   .fetchedBankList[index].identifier,
                               () {
-                                Get.to(LoginBank(
+                                Get.to(
+                                  LoginBank(
                                     banckId: _navHomeController
-                                        .fetchedBankList[index].id));
+                                        .fetchedBankList[index].id,
+                                  ),
+                                );
                               },
                               context,
                             );

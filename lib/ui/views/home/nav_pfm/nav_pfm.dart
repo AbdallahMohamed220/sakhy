@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
 import 'package:sakhy/ui/styles/styles.dart';
 import 'package:sakhy/ui/views/home/nav_pfm/auto_financial_liquidity/auto_financial_liquidity.dart';
+import 'package:sakhy/ui/views/home/nav_pfm/auto_financial_liquidity/auto_financial_liquidity_add_bill.dart';
 import 'package:sakhy/ui/views/reports/reports.dart';
 import 'package:sakhy/ui/widgets/profile_item.dart';
 import 'package:sakhy/ui/route/route.dart' as route;
@@ -58,7 +59,7 @@ class NavPFM extends StatelessWidget {
               height: 120.h,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(AutoFinancialLiquidity());
+                  Get.to(AutoFinancialLiquidityAddBill());
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFF333333),

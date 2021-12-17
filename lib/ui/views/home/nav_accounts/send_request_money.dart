@@ -15,6 +15,9 @@ import 'package:sakhy/ui/widgets/form_field.dart';
 import 'package:sakhy/ui/widgets/full_width_button.dart';
 
 class SendRequestMoney extends StatefulWidget {
+  final String balance;
+
+  const SendRequestMoney({Key? key, required this.balance}) : super(key: key);
   @override
   _SendRequestMoneyState createState() => _SendRequestMoneyState();
 }
@@ -29,14 +32,16 @@ class _SendRequestMoneyState extends State<SendRequestMoney> {
   // ];
 
   String _chooseAccount = "Choose Account";
+  String accountBalance = "0.0";
   bool _isSendMoneyActive = true;
+  bool _showBalance = false;
   NavAccountController _navAccountController = Get.put(NavAccountController());
   BeneficiaryController _beneficiaryController =
       Get.put(BeneficiaryController());
   SendRequestMoneyController _sendRequestMoneyController =
       Get.put(SendRequestMoneyController());
 
-  String beneficiaryid = '';
+  String beneficiaryName = '';
   @override
   void initState() {
     super.initState();
@@ -239,6 +244,7 @@ class _SendRequestMoneyState extends State<SendRequestMoney> {
                               _chooseAccount = newValue!.accountName;
                               _sendRequestMoneyController.bankName =
                                   _chooseAccount;
+                              accountBalance = newValue.balance;
                             });
                           },
                           items: _navAccountController.fetchedAccountList
@@ -259,15 +265,23 @@ class _SendRequestMoneyState extends State<SendRequestMoney> {
                       Styles.transparentDivider(),
                       Row(
                         children: [
-                          Icon(
-                            Icons.visibility,
-                            color: AppColors.Alpine,
+                          InkWell(
+                            onTap: () {
+                              _showBalance = !_showBalance;
+                              setState(() {});
+                            },
+                            child: Icon(
+                              _showBalance
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: AppColors.Alpine,
+                            ),
                           ),
                           SizedBox(
                             width: 8.h,
                           ),
                           Text(
-                            'Show Balance',
+                            _showBalance ? accountBalance : 'Show Balance',
                             style: TextStyle(
                               fontSize: 14.sp,
                             ),
@@ -353,9 +367,9 @@ class _SendRequestMoneyState extends State<SendRequestMoney> {
                                   itemBuilder: (_, index) {
                                     return InkWell(
                                       onTap: () {
-                                        beneficiaryid = _beneficiaryController
+                                        beneficiaryName = _beneficiaryController
                                             .fetchedLocalBeneficiaryList[index]
-                                            .id;
+                                            .beneficiaryName;
 
                                         setState(() {});
                                       },
@@ -367,11 +381,11 @@ class _SendRequestMoneyState extends State<SendRequestMoney> {
                                                 BorderRadius.circular(12),
                                             border: Border.all(
                                               width: 2,
-                                              color: beneficiaryid ==
+                                              color: beneficiaryName ==
                                                       _beneficiaryController
                                                           .fetchedLocalBeneficiaryList[
                                                               index]
-                                                          .id
+                                                          .beneficiaryName
                                                   ? AppColors.Alpine
                                                   : Color(0xFF1C1C1C),
                                             ),
@@ -437,14 +451,17 @@ class _SendRequestMoneyState extends State<SendRequestMoney> {
                       Styles.transparentDivider(),
                       Obx(
                         () => _sendRequestMoneyController.loadingProcess.value
-                            ? Center(child: CircularProgressIndicator())
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                color: AppColors.Alpine,
+                              ))
                             : fullWidthButton(
                                 "Send",
                                 () => _isSendMoneyActive
                                     ? _sendRequestMoneyController
-                                        .sendMoney(beneficiaryid)
+                                        .sendMoney(beneficiaryName)
                                     : _sendRequestMoneyController
-                                        .requestMoney(beneficiaryid),
+                                        .requestMoney(beneficiaryName),
                               ),
                       ),
 

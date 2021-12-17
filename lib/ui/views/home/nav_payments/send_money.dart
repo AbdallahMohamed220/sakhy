@@ -12,6 +12,7 @@ import 'package:sakhy/ui/views/home/nav_payments/Beneficiary_controller.dart';
 import 'package:sakhy/ui/widgets/bank_card.dart';
 import 'package:sakhy/ui/widgets/form_field.dart';
 import 'package:sakhy/ui/widgets/full_width_button.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class SendMoney extends StatefulWidget {
   @override
@@ -32,9 +33,11 @@ class _SendMoneyState extends State<SendMoney> {
   // TextEditingController _amountController = TextEditingController();
   // String _reasonForSending = "";
   NavAccountController _navAccountController = Get.put(NavAccountController());
+
   @override
   void initState() {
     super.initState();
+
     _navAccountController.fetchAccounts();
   }
 
@@ -60,12 +63,40 @@ class _SendMoneyState extends State<SendMoney> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                sakhyCard(
-                  "Sakhy Card",
-                  "$total SAR",
-                  () {},
-                  context,
-                ),
+                Obx(() => _navAccountController.accountsloadingProcess.value
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.Alpine,
+                        ),
+                      )
+                    : Container(
+                        height: 170.h,
+                        child: ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount:
+                              _navAccountController.fetchedAccountList.length,
+                          itemBuilder: (context, i) => VisibilityDetector(
+                              key: Key("unique key"),
+                              onVisibilityChanged: (VisibilityInfo info) {
+                                print(_navAccountController
+                                    .fetchedAccountList[i].accountName);
+                              },
+                              child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  child: sakhyCard(
+                                    int.parse(_navAccountController
+                                        .fetchedAccountList[i].color),
+                                    _navAccountController
+                                        .fetchedAccountList[i].accountName,
+                                    "${_navAccountController.fetchedAccountList[i].balance} SAR",
+                                    () {},
+                                    context,
+                                  ))),
+                        ),
+                      )),
+
                 Styles.transparentDivider(),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,9 +237,17 @@ class _SendMoneyState extends State<SendMoney> {
                 //   ),
                 // ),
                 Styles.transparentDivider(),
-                fullWidthButton(
-                  "Send",
-                  () => Navigator.pushNamed(context, route.confirmWithFaceID),
+                Obx(
+                  () => _beneficiaryController.loadingProcess.value
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.Alpine,
+                          ),
+                        )
+                      : fullWidthButton(
+                          "Send",
+                          () => _beneficiaryController.beneficiarySendMoney(''),
+                        ),
                 ),
 
                 Styles.transparentDivider(),

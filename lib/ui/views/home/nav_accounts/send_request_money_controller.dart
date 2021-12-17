@@ -29,7 +29,7 @@ class SendRequestMoneyController extends GetxController {
     try {
       loadingProcess(true);
       var requestResponce = await SendRequestMoneyServices.sendMoney(
-          id, sendAmount.text, sendDescription.text);
+          id, sendAmount.text, sendDescription.text, bankName);
 
       if (requestResponce == 'success') {
         Get.to(ConfirmWithFaceID());
@@ -51,14 +51,14 @@ class SendRequestMoneyController extends GetxController {
     }
   }
 
-  Future<void> requestMoney(String id) async {
+  Future<void> requestMoney(String beneficiaryname) async {
     if (!reqestMoneyKey.currentState!.validate()) {
       return;
     }
     try {
       loadingProcess(true);
       var requestResponce = await SendRequestMoneyServices.requestMoney(
-          id, requestAmount.text, requestDescription.text);
+          beneficiaryname, requestAmount.text, requestDescription.text);
 
       if (requestResponce == 'success') {
         Get.to(ConfirmWithFaceID());

@@ -4,14 +4,24 @@ class MoneyRequest {
   final String amount;
   final String clientId;
   final String creationDate;
+  final String currency;
   final String from;
   final String id;
   final String modifiedDate;
   final String reason;
   final String status;
 
-  MoneyRequest(this.amount, this.clientId, this.creationDate, this.from,
-      this.id, this.modifiedDate, this.reason, this.status);
+  MoneyRequest(
+    this.amount,
+    this.clientId,
+    this.creationDate,
+    this.currency,
+    this.from,
+    this.id,
+    this.modifiedDate,
+    this.reason,
+    this.status,
+  );
 
   Map<String, dynamic> toMap() {
     return {
@@ -30,7 +40,8 @@ class MoneyRequest {
     return MoneyRequest(
       map['amount'],
       map['client_id'],
-      map['creation_date'],
+      map['creation_time'],
+      map['currency'],
       map['from'],
       map['id'],
       map['modified_date'],

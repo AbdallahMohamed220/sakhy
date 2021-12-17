@@ -10,8 +10,7 @@ class SakhyAccount extends StatelessWidget {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            sakhyCard("Total","100000 SAR",()=>Navigator.pushNamed(context, route.cardDetails),context),
-
+            // sakhyCard("Total","100000 SAR",()=>Navigator.pushNamed(context, route.cardDetails),context),
           ],
         ),
       ),

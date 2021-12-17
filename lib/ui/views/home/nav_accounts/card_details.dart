@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sakhy/ui/styles/styles.dart';
+import 'package:sakhy/ui/views/home/nav_accounts/send_request_money.dart';
 import 'package:sakhy/ui/widgets/accounts_small_item.dart';
 import 'package:sakhy/ui/route/route.dart' as route;
 import 'package:sakhy/ui/widgets/bank_card.dart';
@@ -64,8 +66,13 @@ class _CardDetailsState extends State<CardDetails> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    // accountSmallItem(() {
+                    //   Navigator.pushNamed(context, route.sendRequestMoney);
+                    // }, Icons.call_made_outlined, "Send"),
                     accountSmallItem(() {
-                      Navigator.pushNamed(context, route.sendRequestMoney);
+                      Get.to(SendRequestMoney(
+                        balance: widget.bankBalance,
+                      ));
                     }, Icons.call_made_outlined, "Send"),
                     accountSmallItem(() {
                       Navigator.pushNamed(context, route.sendRequestMoney);
@@ -88,28 +95,25 @@ class _CardDetailsState extends State<CardDetails> {
                           itemCount: _options.length,
                           itemBuilder: (context, i) => Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  height: 20.h,
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Color(0xFF4F4F4F),
-                                      elevation: 3,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(7.r),
-                                        ),
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Color(0xFF4F4F4F),
+                                    elevation: 3,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(7.r),
                                       ),
-                                      padding: EdgeInsets.all(0),
                                     ),
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 10.w, bottom: 10.w),
-                                      child: Text(
-                                        _options[i],
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                        ),
+                                    padding: EdgeInsets.all(0),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 10.w, bottom: 10.w),
+                                    child: Text(
+                                      _options[i],
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
                                       ),
                                     ),
                                   ),

@@ -54,12 +54,12 @@ class _BeneficarySendMoneyState extends State<BeneficarySendMoney> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                sakhyCard(
-                  "Sakhy Card",
-                  "100000 SAR",
-                  () {},
-                  context,
-                ),
+                // sakhyCard(
+                //   "Sakhy Card",
+                //   "100000 SAR",
+                //   () {},
+                //   context,
+                // ),
                 Styles.transparentDivider(),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,

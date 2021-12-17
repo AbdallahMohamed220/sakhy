@@ -6,6 +6,7 @@ class Account {
   final String balance;
   final String bankId;
   final String bankName;
+  final String cardNumber;
   final String clientId;
   final String color;
   final String currency;
@@ -20,6 +21,7 @@ class Account {
     this.balance,
     this.bankId,
     this.bankName,
+    this.cardNumber,
     this.clientId,
     this.color,
     this.currency,
@@ -49,6 +51,7 @@ class Account {
       map['balance'],
       map['bank_id'],
       map['bank_name'],
+      map['card_number'],
       map['client_id'],
       map['color'],
       map['currency'],

@@ -24,6 +24,7 @@ class navDrawer extends StatelessWidget {
                 onPressed: () {
                   GetStorage().remove("userId");
                   GetStorage().remove("email");
+                  GetStorage().remove("userName");
                   GetStorage().remove("clientId");
                   Get.offAll(SplashScreen());
                 },

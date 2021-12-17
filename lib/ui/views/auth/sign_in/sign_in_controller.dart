@@ -8,12 +8,12 @@ import 'package:sakhy/ui/views/home/bottom_nav_controller.dart';
 class SignInController extends GetxController {
   var loadingProcess = false.obs;
   final TextEditingController email =
-      TextEditingController(text: "A.faisal@cib.com");
+      TextEditingController(text: "Test@sakhy.tech");
 
   final TextEditingController password = TextEditingController(text: '123456');
 
   final TextEditingController loginBankemail =
-      TextEditingController(text: "A.faisal@cib.com");
+      TextEditingController(text: "Test@sakhy.tech");
 
   final TextEditingController loginankpassword =
       TextEditingController(text: '123456');
@@ -70,6 +70,9 @@ class SignInController extends GetxController {
           textColor: Colors.white,
           fontSize: 16.0,
         );
+        Future.delayed(Duration(seconds: 2), () {
+          Get.offAll(BottomNavController());
+        });
       } else {
         Fluttertoast.showToast(
           msg: 'An error occuur Please check your data and try again',

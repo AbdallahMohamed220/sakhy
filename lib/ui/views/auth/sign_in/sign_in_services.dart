@@ -20,6 +20,7 @@ class SignInServices {
       if (value['email'] == email && value['password'] == password) {
         final box = GetStorage();
         box.write("email", value['email']);
+        box.write("userName", value['first_name'] + ' ' + value['last_name']);
         box.write("userId", value['id']);
 
         checkUserFound = 'found';

@@ -132,10 +132,10 @@ Route<dynamic> controller(RouteSettings settings) {
     //   return CupertinoPageRoute(
     //     builder: (context) => CardDetails(),
     //   );
-    case sendRequestMoney:
-      return CupertinoPageRoute(
-        builder: (context) => SendRequestMoney(),
-      );
+    // case sendRequestMoney:
+    //   return CupertinoPageRoute(
+    //     builder: (context) => SendRequestMoney(),
+    //   );
     case cardSettings:
       return CupertinoPageRoute(
         builder: (context) => CardSettings(),

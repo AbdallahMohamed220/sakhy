@@ -9,7 +9,7 @@ Widget navHomeItemsLight(icon, title, amount, onClick) {
     child: ElevatedButton(
       onPressed: onClick,
       style: ElevatedButton.styleFrom(
-        primary: Color(0xFF4F4F4F),
+        primary: Color(0xFF333333),
         elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
