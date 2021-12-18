@@ -124,6 +124,7 @@ class _SignUpState extends State<SignUp> {
                     Row(
                       children: [
                         Checkbox(
+                          activeColor: AppColors.Alpine,
                           value: _check,
                           onChanged: (val) {
                             setState(() {
@@ -153,7 +154,11 @@ class _SignUpState extends State<SignUp> {
                     ),
                     Obx(
                       () => _signUpController.loadingProcess.value
-                          ? Center(child: CircularProgressIndicator())
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.Alpine,
+                              ),
+                            )
                           : fullWidthButton(
                               "Sign Up",
                               () => _signUpController.signUp(),

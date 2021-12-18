@@ -12,7 +12,16 @@ class SignUpServices {
     } else {
       Response response = await Dio()
           .post('https://sakhy-7f3ae-default-rtdb.firebaseio.com/users.json',
-              data: {'email': email, 'password': password},
+              data: {
+                'email': email,
+                'password': password,
+                'address': "Gedah",
+                'first_name': "khlaed",
+                'id': "",
+                'last_name': "Faisal",
+                'mobile': "+9662565645",
+                'national_id': "67345454845634",
+              },
               options: Options(
                   headers: {
                     "Content-Type": "application/json",
@@ -24,6 +33,27 @@ class SignUpServices {
                   }));
       if (response.data['name'] != null) {
         signUpStats = 'success';
+        await Dio().put(
+            'https://sakhy-7f3ae-default-rtdb.firebaseio.com/users/${response.data['name']}.json',
+            data: {
+              'email': email,
+              'password': password,
+              'address': "Gedah",
+              'first_name': "khlaed",
+              'id': response.data['name'],
+              'last_name': "Faisal",
+              'mobile': "+9662565645",
+              'national_id': "67345454845634",
+            },
+            options: Options(
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                contentType: "application/x-www-form-urlencoded",
+                followRedirects: false,
+                validateStatus: (status) {
+                  return status! < 500;
+                }));
       } else {
         signUpStats = 'fail';
       }
