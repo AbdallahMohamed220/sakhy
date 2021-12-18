@@ -518,7 +518,7 @@ Widget smallBankCard(
                     cardNumber,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 24.sp,
+                      fontSize: 20.sp,
                       color: Colors.white,
                       letterSpacing: 1.8.sp,
                     ),
