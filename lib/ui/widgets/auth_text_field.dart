@@ -29,6 +29,9 @@ Widget authTextField(
         vertical: 0,
         horizontal: 12.0,
       ),
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: AppColors.Alpine),
+      ),
       suffixIcon: Icon(
         suffixIcon,
         size: 22.h,

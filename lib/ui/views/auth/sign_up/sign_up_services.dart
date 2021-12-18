@@ -2,7 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:sakhy/ui/views/auth/sign_in/sign_in_services.dart';
 
 class SignUpServices {
-  static Future<String?> signUp(String email, String password) async {
+  static Future<String?> signUp(
+    String email,
+    String password,
+    String firstName,
+    String lastName,
+  ) async {
     String signInStats = '';
     String signUpStats = '';
 
@@ -16,9 +21,9 @@ class SignUpServices {
                 'email': email,
                 'password': password,
                 'address': "Gedah",
-                'first_name': "khlaed",
+                'first_name': firstName,
                 'id': "",
-                'last_name': "Faisal",
+                'last_name': lastName,
                 'mobile': "+9662565645",
                 'national_id': "67345454845634",
               },
@@ -39,9 +44,9 @@ class SignUpServices {
               'email': email,
               'password': password,
               'address': "Gedah",
-              'first_name': "khlaed",
+              'first_name': firstName,
               'id': response.data['name'],
-              'last_name': "Faisal",
+              'last_name': lastName,
               'mobile': "+9662565645",
               'national_id': "67345454845634",
             },

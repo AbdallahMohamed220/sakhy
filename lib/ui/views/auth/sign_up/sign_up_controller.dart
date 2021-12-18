@@ -11,6 +11,9 @@ class SignUpController extends GetxController {
   var loadingProcess = false.obs;
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
+  final TextEditingController firstName = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
+
   final signUpformKey = GlobalKey<FormState>();
 
   @override
@@ -24,7 +27,12 @@ class SignUpController extends GetxController {
     }
     try {
       loadingProcess(true);
-      var signInData = await SignUpServices.signUp(email.text, password.text);
+      var signInData = await SignUpServices.signUp(
+        email.text,
+        password.text,
+        firstName.text,
+        lastName.text,
+      );
       if (signInData == 'success') {
         Fluttertoast.showToast(
           msg: 'Your account created successfully sign in now',

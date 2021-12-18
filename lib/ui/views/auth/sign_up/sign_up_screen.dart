@@ -37,6 +37,8 @@ class _SignUpState extends State<SignUp> {
             child: Center(
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
+                physics: BouncingScrollPhysics(),
+                reverse: true,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -102,6 +104,30 @@ class _SignUpState extends State<SignUp> {
                     authTextField(
                       TextInputType.emailAddress,
                       false,
+                      _signUpController.firstName,
+                      true,
+                      Icons.person_outline_rounded,
+                      context,
+                      "First Name",
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    authTextField(
+                      TextInputType.text,
+                      false,
+                      _signUpController.lastName,
+                      true,
+                      Icons.person_outline_rounded,
+                      context,
+                      "last Name",
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    authTextField(
+                      TextInputType.emailAddress,
+                      false,
                       _signUpController.email,
                       true,
                       Icons.email_outlined,
@@ -109,7 +135,7 @@ class _SignUpState extends State<SignUp> {
                       "E-mail",
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 10.h,
                     ),
                     authTextField(
                       TextInputType.text,
@@ -180,6 +206,9 @@ class _SignUpState extends State<SignUp> {
                     smallButton(
                       "Login",
                       () => Navigator.pushNamed(context, route.signIn),
+                    ),
+                    SizedBox(
+                      height: 10.h,
                     ),
                   ],
                 ),
