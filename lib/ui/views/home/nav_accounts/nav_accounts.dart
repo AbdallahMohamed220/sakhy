@@ -48,11 +48,40 @@ class _NavAccountsState extends State<NavAccounts> {
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: [
+          Obx(
+            () => _navAccountController.accountsloadingProcess.value
+                ? Text('')
+                : _navAccountController.fetchedAccountList.isEmpty
+                    ? Text(
+                        '',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15.sp,
+                          color: Colors.white,
+                        ),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: Text(
+                          'Accounts',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+          ),
+          Obx(
+            () => _navAccountController.fetchedAccountList.isEmpty
+                ? SizedBox()
+                : Styles.transparentDivider(),
+          ),
           Padding(
             padding: EdgeInsets.only(
               left: 15.w,
               right: 15.w,
-              top: 20.h,
+              top: 12.h,
             ),
             child: Obx(
               () => _navAccountController.accountsloadingProcess.value
@@ -61,43 +90,71 @@ class _NavAccountsState extends State<NavAccounts> {
                         color: AppColors.Alpine,
                       ),
                     )
-                  : Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        itemCount:
-                            _navAccountController.fetchedAccountList.length,
-                        itemBuilder: (_, index) {
-                          return smallBankCard(
-                              _navAccountController
-                                  .fetchedAccountList[index].accountName,
-                              int.parse(_navAccountController
-                                  .fetchedAccountList[index].color),
-                              Icons.ac_unit_outlined,
-                              _navAccountController
-                                  .fetchedAccountList[index].balance,
-                              _navAccountController
-                                  .fetchedAccountList[index].cardNumber,
-                              () => Get.to(
-                                    CardDetails(
-                                      bankName: _navAccountController
-                                          .fetchedAccountList[index]
-                                          .accountName,
-                                      bankBalance: _navAccountController
-                                          .fetchedAccountList[index].balance,
-                                      iban: _navAccountController
-                                          .fetchedAccountList[index].iban,
-                                      color: _navAccountController
-                                          .fetchedAccountList[index].color,
-                                    ),
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemCount:
+                          _navAccountController.fetchedAccountList.length,
+                      itemBuilder: (_, index) {
+                        return smallBankCard(
+                            _navAccountController
+                                .fetchedAccountList[index].accountName,
+                            int.parse(_navAccountController
+                                .fetchedAccountList[index].color),
+                            Icons.ac_unit_outlined,
+                            _navAccountController
+                                .fetchedAccountList[index].balance,
+                            _navAccountController
+                                .fetchedAccountList[index].cardNumber,
+                            () => Get.to(
+                                  CardDetails(
+                                    bankName: _navAccountController
+                                        .fetchedAccountList[index].accountName,
+                                    bankBalance: _navAccountController
+                                        .fetchedAccountList[index].balance,
+                                    iban: _navAccountController
+                                        .fetchedAccountList[index].iban,
+                                    color: _navAccountController
+                                        .fetchedAccountList[index].color,
                                   ),
-                              context);
-                        },
-                      ),
+                                ),
+                            context);
+                      },
                     ),
             ),
           ),
-          Styles.transparentDivider(),
+          Obx(
+            () => _navAccountController.fetchedAccountList.isEmpty
+                ? SizedBox()
+                : Styles.transparentDivider(),
+          ),
+          Obx(
+            () => _navAccountController.cardsloadingProcess.value
+                ? Text('')
+                : _navAccountController.fetchedCreditCardList.isEmpty
+                    ? Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: Text(
+                          'No Accounts / Credit Cards Found ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: Text(
+                          'Credit Cards',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+          ),
           Styles.transparentDivider(),
           Padding(
             padding: EdgeInsets.only(
@@ -112,37 +169,21 @@ class _NavAccountsState extends State<NavAccounts> {
                         color: AppColors.Alpine,
                       ),
                     )
-                  : Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 15),
-                          child: Text(
-                            'Credit Card',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20.sp,
-                                color: Colors.white),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: BouncingScrollPhysics(),
-                            itemCount: _navAccountController
-                                .fetchedCreditCardList.length,
-                            itemBuilder: (_, index) {
-                              return creditCard(
-                                _navAccountController
-                                    .fetchedCreditCardList[index].cardNumber,
-                                int.parse(_navAccountController
-                                    .fetchedCreditCardList[index].color),
-                                _navAccountController
-                                    .fetchedCreditCardList[index].expDate,
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemCount:
+                          _navAccountController.fetchedCreditCardList.length,
+                      itemBuilder: (_, index) {
+                        return creditCard(
+                          _navAccountController
+                              .fetchedCreditCardList[index].cardNumber,
+                          int.parse(_navAccountController
+                              .fetchedCreditCardList[index].color),
+                          _navAccountController
+                              .fetchedCreditCardList[index].expDate,
+                        );
+                      },
                     ),
             ),
           )

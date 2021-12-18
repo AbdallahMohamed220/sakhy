@@ -27,7 +27,7 @@ class _LoginBankState extends State<LoginBank> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Styles.headingText("LoginBank"),
+        title: Styles.headingText("Bank Account Login"),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Get.back(),
@@ -51,11 +51,11 @@ class _LoginBankState extends State<LoginBank> {
               SizedBox(
                 height: 8.h,
               ),
-              Text(
-                "Login with your email & password",
-                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp),
-                textAlign: TextAlign.center,
-              ),
+              // Text(
+              //   "Login with your email & password",
+              //   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp),
+              //   textAlign: TextAlign.center,
+              // ),
               Divider(
                 color: Colors.transparent,
               ),

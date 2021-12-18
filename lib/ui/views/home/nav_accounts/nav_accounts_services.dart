@@ -71,7 +71,7 @@ class NavAccountServices {
         'https://sakhy-7f3ae-default-rtdb.firebaseio.com/creditCards.json',
         data: {
           'card_number': cardNumber,
-          'client_id': GetStorage().read('clientId'),
+          'client_id': GetStorage().read('userId'),
           'color': '0xff222F4A82',
           'cvv': cvv,
           'exp_date': expDate,
@@ -104,12 +104,16 @@ class NavAccountServices {
     List<CreditCard> temp = <CreditCard>[];
     print('creditCards');
     print(response.data);
-    final Map<String, dynamic> productclientaccountsListData = response.data;
-    productclientaccountsListData.forEach((key, value) {
-      if (value['client_id'] == GetStorage().read('clientId')) {
-        temp.add(CreditCard.fromMap(value));
-      }
-    });
+    if (response.data == null) {
+      temp = [];
+    } else {
+      final Map<String, dynamic> productclientaccountsListData = response.data;
+      productclientaccountsListData.forEach((key, value) {
+        if (value['client_id'] == GetStorage().read('userId')) {
+          temp.add(CreditCard.fromMap(value));
+        }
+      });
+    }
 
     return temp;
   }
@@ -127,13 +131,17 @@ class NavAccountServices {
               return status! < 500;
             }));
     List<MoneyRequest> temp = [];
-    final Map<String, dynamic> productclientaccountsListData = response.data;
-    productclientaccountsListData.forEach((key, value) {
-      if (value['client_id'] == GetStorage().read('clientId') &&
-          value['status'] == 'pending') {
-        temp.add(MoneyRequest.fromMap(value));
-      }
-    });
+    if (response.data == null) {
+      temp = [];
+    } else {
+      final Map<String, dynamic> productclientaccountsListData = response.data;
+      productclientaccountsListData.forEach((key, value) {
+        if (value['client_id'] == GetStorage().read('clientId') &&
+            value['status'] == 'pending') {
+          temp.add(MoneyRequest.fromMap(value));
+        }
+      });
+    }
 
     return temp;
   }

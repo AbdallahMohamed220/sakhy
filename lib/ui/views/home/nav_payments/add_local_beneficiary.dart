@@ -130,6 +130,7 @@ class _AddLocalBeneficiaryState extends State<AddLocalBeneficiary> {
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                     border: Border.all(color: Colors.white, width: 1),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: DropdownButton(
                     hint: Padding(
@@ -142,6 +143,9 @@ class _AddLocalBeneficiaryState extends State<AddLocalBeneficiary> {
                             fontWeight: FontWeight.w600,
                             fontSize: 15.sp),
                       ),
+                    ),
+                    style: new TextStyle(
+                      color: Color(0xff333333),
                     ),
                     icon: IconButton(
                       onPressed: null,
@@ -168,7 +172,7 @@ class _AddLocalBeneficiaryState extends State<AddLocalBeneficiary> {
                         child: Text(
                           location.name,
                           style: TextStyle(
-                              color: Colors.black,
+                              color: AppColors.Alpine,
                               fontWeight: FontWeight.w600,
                               fontSize: 15.sp),
                         ),

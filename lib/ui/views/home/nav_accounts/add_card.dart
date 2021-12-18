@@ -108,6 +108,7 @@ class _AddCardState extends State<AddCard> {
                   children: [
                     Expanded(
                       child: new TextFormField(
+                        keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                           new LengthLimitingTextInputFormatter(4),
@@ -158,6 +159,7 @@ class _AddCardState extends State<AddCard> {
 
                     Expanded(
                       child: new TextFormField(
+                        keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                           new LengthLimitingTextInputFormatter(4),

@@ -3,8 +3,8 @@ import 'dart:convert';
 class CreditCard {
   final String cardNumber;
   final String clientId;
-  final String cvv;
   final String color;
+  final String cvv;
   final String expDate;
 
   CreditCard({

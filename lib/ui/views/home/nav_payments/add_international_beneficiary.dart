@@ -132,50 +132,55 @@ class _AddlnternationalBeneficiaryState
                     color: Colors.transparent,
                     border: Border.all(color: Colors.white, width: 1),
                   ),
-                  child: DropdownButton(
-                    hint: Padding(
-                      padding: EdgeInsets.only(
-                          left: 15, bottom: 11, top: 11, right: 15),
-                      child: Text(
-                        _sarieorManual,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15.sp),
-                      ),
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      canvasColor: Color(0xff333333),
                     ),
-                    icon: IconButton(
-                      onPressed: null,
-                      icon: Icon(
-                        Icons.arrow_downward,
-                        color: AppColors.Alpine,
-                        size: 20.w,
-                      ),
-                    ),
-                    isExpanded: true,
-                    iconSize: 18,
-                    underline: Container(
-                      height: 0,
-                      color: Colors.transparent,
-                    ),
-                    onChanged: (Bank? newValue) {
-                      setState(() {
-                        _sarieorManual = newValue!.name;
-                        _beneficiaryController.bankName = _sarieorManual;
-                      });
-                    },
-                    items: _navHomeController.fetchedBankList.map((location) {
-                      return DropdownMenuItem(
+                    child: DropdownButton(
+                      hint: Padding(
+                        padding: EdgeInsets.only(
+                            left: 15, bottom: 11, top: 11, right: 15),
                         child: Text(
-                          location.name,
+                          _sarieorManual,
                           style: TextStyle(
-                              color: Colors.black,
+                              color: Colors.white,
                               fontWeight: FontWeight.w600,
                               fontSize: 15.sp),
                         ),
-                        value: location,
-                      );
-                    }).toList(),
+                      ),
+                      icon: IconButton(
+                        onPressed: null,
+                        icon: Icon(
+                          Icons.arrow_downward,
+                          color: AppColors.Alpine,
+                          size: 20.w,
+                        ),
+                      ),
+                      isExpanded: true,
+                      iconSize: 18,
+                      underline: Container(
+                        height: 0,
+                        color: Colors.transparent,
+                      ),
+                      onChanged: (Bank? newValue) {
+                        setState(() {
+                          _sarieorManual = newValue!.name;
+                          _beneficiaryController.bankName = _sarieorManual;
+                        });
+                      },
+                      items: _navHomeController.fetchedBankList.map((location) {
+                        return DropdownMenuItem(
+                          child: Text(
+                            location.name,
+                            style: TextStyle(
+                                color: AppColors.Alpine,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15.sp),
+                          ),
+                          value: location,
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ),
                 Styles.transparentDivider(),

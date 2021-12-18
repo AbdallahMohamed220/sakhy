@@ -8,9 +8,10 @@ import 'package:sakhy/ui/views/home/bottom_nav_controller.dart';
 class SignInController extends GetxController {
   var loadingProcess = false.obs;
   final TextEditingController email =
-      TextEditingController(text: "Test@sakhy.tech");
+      TextEditingController(text: "khaledfh@yahoo.com");
 
-  final TextEditingController password = TextEditingController(text: '123456');
+  final TextEditingController password =
+      TextEditingController(text: 'myahia23');
 
   final TextEditingController loginBankemail =
       TextEditingController(text: "Test@sakhy.tech");

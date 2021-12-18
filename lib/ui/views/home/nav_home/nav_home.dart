@@ -188,14 +188,16 @@ class _NavHomeState extends State<NavHome> {
                               ),
                             ),
                           ),
+                          Styles.transparentDivider(),
                           Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Column(
                               children: [
-                                Styles.headingText("Your Accounts"),
+                                Styles.headingText("Accounts"),
                               ],
                             ),
-                          )
+                          ),
+                          Styles.transparentDivider(),
                         ],
                       ),
                     ),
@@ -245,14 +247,14 @@ class _NavHomeState extends State<NavHome> {
                                   navHomeItemsLight(
                                     "assets/icons/total-in.png",
                                     "Total in",
-                                    "10000 SAR",
+                                    "0 SAR",
                                     () => Navigator.pushNamed(
                                         context, route.income),
                                   ),
                                   navHomeItemsLight(
                                     "assets/icons/total-out.png",
                                     "Total out",
-                                    "10000 SAR",
+                                    "0 SAR",
                                     () => Navigator.pushNamed(
                                         context, route.sepending),
                                   ),

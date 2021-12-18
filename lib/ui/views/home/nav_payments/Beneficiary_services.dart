@@ -129,7 +129,8 @@ class BeneficiaryServices {
 
     final Map<String, dynamic> productAccountsListData = response.data;
     productAccountsListData.forEach((key, value) {
-      if (value['is_local'] == true) {
+      if (value['is_local'] == true &&
+          value['user_id'] == GetStorage().read('userId')) {
         temp.add(Beneficiarie.fromMap(value));
       }
     });
@@ -155,7 +156,8 @@ class BeneficiaryServices {
 
     final Map<String, dynamic> productAccountsListData = response.data;
     productAccountsListData.forEach((key, value) {
-      if (value['is_local'] == false) {
+      if (value['is_local'] == false &&
+          value['user_id'] == GetStorage().read('userId')) {
         temp.add(Beneficiarie.fromMap(value));
       }
     });

@@ -69,33 +69,35 @@ class _SendMoneyState extends State<SendMoney> {
                           color: AppColors.Alpine,
                         ),
                       )
-                    : Container(
-                        height: 170.h,
-                        child: ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount:
-                              _navAccountController.fetchedAccountList.length,
-                          itemBuilder: (context, i) => VisibilityDetector(
-                              key: Key("unique key"),
-                              onVisibilityChanged: (VisibilityInfo info) {
-                                print(_navAccountController
-                                    .fetchedAccountList[i].accountName);
-                              },
-                              child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: sakhyCard(
-                                    int.parse(_navAccountController
-                                        .fetchedAccountList[i].color),
-                                    _navAccountController
-                                        .fetchedAccountList[i].accountName,
-                                    "${_navAccountController.fetchedAccountList[i].balance} SAR",
-                                    () {},
-                                    context,
-                                  ))),
-                        ),
-                      )),
+                    : _navAccountController.fetchedAccountList.isEmpty
+                        ? Center(child: Text('No Accounts / Cards Found'))
+                        : Container(
+                            height: 170.h,
+                            child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: _navAccountController
+                                  .fetchedAccountList.length,
+                              itemBuilder: (context, i) => VisibilityDetector(
+                                  key: Key("unique key"),
+                                  onVisibilityChanged: (VisibilityInfo info) {
+                                    print(_navAccountController
+                                        .fetchedAccountList[i].accountName);
+                                  },
+                                  child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: sakhyCard(
+                                        int.parse(_navAccountController
+                                            .fetchedAccountList[i].color),
+                                        _navAccountController
+                                            .fetchedAccountList[i].accountName,
+                                        "${_navAccountController.fetchedAccountList[i].balance} SAR",
+                                        () {},
+                                        context,
+                                      ))),
+                            ),
+                          )),
 
                 Styles.transparentDivider(),
                 // Row(
