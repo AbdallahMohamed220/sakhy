@@ -232,4 +232,31 @@ class BeneficiaryController extends GetxController {
       loadingProcess(false);
     }
   }
+
+  @override
+  void onClose() {
+    super.onClose();
+    beneficiaryAlias.clear();
+    beneficiaryAlias.dispose();
+    beneficiaryname.clear();
+    beneficiaryname.dispose();
+    iban.clear();
+    iban.dispose();
+    sendMoneyAmount.clear();
+    sendMoneyAmount.dispose();
+    sendMoneyReason.clear();
+    sendMoneyReason.dispose();
+    receiveMoneyAmount.clear();
+    receiveMoneyAmount.dispose();
+    receiveMoneyReason.clear();
+    receiveMoneyReason.dispose();
+    donationAmount.clear();
+    donationAmount.dispose();
+    billAmount.clear();
+    billAmount.dispose();
+    billTitle.clear();
+    billTitle.dispose();
+    billNumber.clear();
+    billNumber.dispose();
+  }
 }
