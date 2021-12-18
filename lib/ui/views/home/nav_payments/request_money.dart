@@ -223,7 +223,9 @@ class _RequestMoneyState extends State<RequestMoney> {
                                 "Enter The Amount"),
                             Styles.transparentDivider(),
                             Obx(
-                              () => _beneficiaryController.loadingProcess.value
+                              () => _beneficiaryController
+                                      .beneficiaryrequestMoneyloadingProcess
+                                      .value
                                   ? Center(
                                       child: CircularProgressIndicator(
                                         color: AppColors.Alpine,

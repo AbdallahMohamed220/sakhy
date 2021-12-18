@@ -8,6 +8,7 @@ import 'package:sakhy/ui/views/home/nav_payments/add_contact.dart';
 
 class BeneficiaryController extends GetxController {
   var loadingProcess = false.obs;
+  var beneficiaryrequestMoneyloadingProcess = false.obs;
   final TextEditingController beneficiaryAlias = TextEditingController();
   final TextEditingController beneficiaryname = TextEditingController();
   final TextEditingController iban = TextEditingController();
@@ -151,7 +152,7 @@ class BeneficiaryController extends GetxController {
       return;
     }
     try {
-      loadingProcess(true);
+      beneficiaryrequestMoneyloadingProcess(true);
       var requestResponce = await BeneficiaryServices.beneficiaryRequestMoney(
           id, receiveMoneyAmount.text, receiveMoneyReason.text);
 
@@ -171,7 +172,7 @@ class BeneficiaryController extends GetxController {
     } catch (e) {
       print(e);
     } finally {
-      loadingProcess(false);
+      beneficiaryrequestMoneyloadingProcess(false);
     }
   }
 
