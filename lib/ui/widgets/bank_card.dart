@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
 import 'package:sakhy/ui/route/route.dart' as route;
 
-Widget banksCard(bankName, color, identifier, onClick, context) {
+Widget banksCard(bankName, color, identifier, imagePath, onClick, context) {
   return Padding(
     padding: EdgeInsets.only(bottom: 15.h),
     child: Container(
@@ -83,11 +83,20 @@ Widget banksCard(bankName, color, identifier, onClick, context) {
                   ),
                 ],
               ),
-              Icon(
-                Icons.ac_unit_outlined,
-                color: Colors.white,
-                size: 24.w,
-              ),
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: Image.network(
+                  imagePath,
+                  fit: BoxFit.contain,
+                ),
+              )
+              // Icon(
+              //   Icons.ac_unit_outlined,
+              //   color: Colors.white,
+              //   size: 24.w,
+              // ),
             ],
           ),
         ),
@@ -458,7 +467,7 @@ Widget sakhyCard(color, bankName, balance, onClick, context) {
 }
 
 Widget smallBankCard(
-    bankName, color, icon, balance, cardNumber, onClick, context) {
+    bankName, color, icon, balance, cardNumber, imagePath, onClick, context) {
   return Padding(
     padding: EdgeInsets.only(bottom: 15.h),
     child: Container(
@@ -518,7 +527,7 @@ Widget smallBankCard(
                     cardNumber,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20.sp,
+                      fontSize: 18.sp,
                       color: Colors.white,
                       letterSpacing: 1.8.sp,
                     ),
@@ -567,11 +576,28 @@ Widget smallBankCard(
                   ),
                 ],
               ),
-              Icon(
-                icon,
-                color: Colors.white,
-                size: 24.w,
-              ),
+              Container(
+                width: 70,
+                height: 70,
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: Image.network(
+                  imagePath,
+                  fit: BoxFit.contain,
+                ),
+              )
+              // CircleAvatar(
+              //   radius: 30,
+              //   backgroundImage: NetworkImage(
+              //     imagePath,
+              //     scale: 1,
+              //   ),
+              //   backgroundColor: Color(0xFF1C1C1C),
+              // )
+              // Icon(
+              //   icon,
+              //   color: Colors.white,
+              //   size: 24.w,
+              // ),
             ],
           ),
         ),

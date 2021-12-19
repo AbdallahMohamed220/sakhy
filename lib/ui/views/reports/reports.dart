@@ -250,8 +250,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
               Obx(() => _reportController.loadingProcess.value
                   ? Center(
                       child: CircularProgressIndicator(
-                      color: AppColors.Alpine,
-                    ))
+                        color: AppColors.Alpine,
+                      ),
+                    )
                   : _reportController.fetchUserReportList.isEmpty
                       ? Center(
                           child: Text('Not Found Transactions',

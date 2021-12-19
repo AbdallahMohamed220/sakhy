@@ -111,6 +111,8 @@ class _NavAccountsState extends State<NavAccounts> {
                                 .fetchedAccountList[index].balance,
                             _navAccountController
                                 .fetchedAccountList[index].cardNumber,
+                            _navAccountController
+                                .fetchedAccountList[index].bankLogo,
                             () => Get.to(
                                   CardDetails(
                                     bankName: _navAccountController

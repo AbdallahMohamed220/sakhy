@@ -3,6 +3,7 @@ class Account {
   final String accountType;
   final String balance;
   final String bankId;
+  final String bankLogo;
   final String bankName;
   final String cardNumber;
   final String clientId;
@@ -18,6 +19,7 @@ class Account {
     this.accountType,
     this.balance,
     this.bankId,
+    this.bankLogo,
     this.bankName,
     this.cardNumber,
     this.clientId,
@@ -48,6 +50,7 @@ class Account {
       map['account_type'],
       map['balance'],
       map['bank_id'],
+      map['bank_logo'],
       map['bank_name'],
       map['card_number'],
       map['client_id'],

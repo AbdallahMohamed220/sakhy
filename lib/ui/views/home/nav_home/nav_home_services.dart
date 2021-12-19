@@ -23,13 +23,14 @@ class NavHomeServices {
     if (response.data == null) {
       return [];
     }
+    print(response.data);
     final Map<String, dynamic> productclientaccountsListData = response.data;
-    productclientaccountsListData.forEach((key, value) {
-      print(value);
-      if (value['client_id'] == GetStorage().read('clientId')) {
-        banksId.add(value['bank_id']);
-      }
-    });
+    //productclientaccountsListData.forEach((key, value) {
+    print(response.data['client_id']);
+    if (response.data['client_id'] == GetStorage().read('clientId')) {
+      banksId.add(response.data['bank_id']);
+    }
+    //});
     print(banksId.length);
     for (var i = 0; i < banksId.length; i++) {
       print('bankid' + banksId[i]);

@@ -219,6 +219,8 @@ class _NavHomeState extends State<NavHome> {
                                   .fetchedUserBankList[index].balance,
                               _navHomeController
                                   .fetchedUserBankList[index].cardNumber,
+                              _navHomeController
+                                  .fetchedUserBankList[index].bankLogo,
                               () => Navigator.pushNamed(
                                   context, route.cardDetails),
                               context),

@@ -75,6 +75,7 @@ class _BanksState extends State<Banks> {
                                   .fetchedBankList[index].color),
                               _navHomeController
                                   .fetchedBankList[index].identifier,
+                              _navHomeController.fetchedBankList[index].logo,
                               () {
                                 Get.to(
                                   LoginBank(

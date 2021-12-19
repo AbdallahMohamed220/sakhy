@@ -76,7 +76,7 @@ class SignInServices {
         accountId = value['account_id'];
       }
     });
-    await Dio().post(
+    await Dio().put(
         'https://sakhy-7f3ae-default-rtdb.firebaseio.com/client_accounts.json',
         data: {
           'account_id': accountId,
