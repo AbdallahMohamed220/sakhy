@@ -35,6 +35,8 @@ class _SendRequestMoneyState extends State<SendRequestMoney> {
   String accountBalance = "0.0";
   bool _isSendMoneyActive = true;
   bool _showBalance = false;
+  bool _formbeneficiary = true;
+
   NavAccountController _navAccountController = Get.put(NavAccountController());
   BeneficiaryController _beneficiaryController =
       Get.put(BeneficiaryController());
@@ -298,9 +300,15 @@ class _SendRequestMoneyState extends State<SendRequestMoney> {
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  _formbeneficiary = true;
+                                });
+                              },
                               style: ElevatedButton.styleFrom(
-                                primary: Color(0xFF4F4F4F),
+                                primary: _formbeneficiary
+                                    ? AppColors.Alpine
+                                    : Color(0xFF4F4F4F),
                                 elevation: 3,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
@@ -326,9 +334,15 @@ class _SendRequestMoneyState extends State<SendRequestMoney> {
                           ),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  _formbeneficiary = false;
+                                });
+                              },
                               style: ElevatedButton.styleFrom(
-                                primary: Color(0xFF4F4F4F),
+                                primary: !_formbeneficiary
+                                    ? AppColors.Alpine
+                                    : Color(0xFF4F4F4F),
                                 elevation: 3,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(

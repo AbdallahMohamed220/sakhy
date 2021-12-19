@@ -22,6 +22,9 @@ class NavAccountServices {
             }));
     List banksId = [];
     print(GetStorage().read('clientId'));
+    if (response.data == null) {
+      return [];
+    }
     final Map<String, dynamic> productclientaccountsListData = response.data;
     productclientaccountsListData.forEach((key, value) {
       print(value);

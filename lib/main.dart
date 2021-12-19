@@ -51,6 +51,8 @@ class MyApp extends StatelessWidget {
             ),
             iconTheme: IconThemeData(color: Colors.white),
             scaffoldBackgroundColor: Color(0xFF1C1C1C),
+            colorScheme: ColorScheme.light(primary: const Color(0xFF1C1C1C)),
+            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           onGenerateRoute: route.controller,
           initialRoute:

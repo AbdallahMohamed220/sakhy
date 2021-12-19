@@ -1,21 +1,16 @@
-import 'dart:math';
-
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sakhy/ui/styles/styles.dart';
 import 'package:sakhy/ui/views/auth/sign_in/sign_in_controller.dart';
-import 'package:sakhy/ui/views/home/nav_home/nav_home_controller.dart';
 import 'package:sakhy/ui/widgets/auth_text_field.dart';
-import 'package:sakhy/ui/widgets/bank_card.dart';
 import 'package:sakhy/ui/widgets/full_width_button.dart';
 
 class LoginBank extends StatefulWidget {
-  final String banckId;
+  final String bankId;
 
-  const LoginBank({Key? key, required this.banckId}) : super(key: key);
+  const LoginBank({Key? key, required this.bankId}) : super(key: key);
   @override
   _LoginBankState createState() => _LoginBankState();
 }
@@ -94,7 +89,7 @@ class _LoginBankState extends State<LoginBank> {
                       ))
                     : fullWidthButton(
                         "Login",
-                        () => _signInController.loginInBank(widget.banckId),
+                        () => _signInController.loginInBank(widget.bankId),
                       ),
               ),
             ],

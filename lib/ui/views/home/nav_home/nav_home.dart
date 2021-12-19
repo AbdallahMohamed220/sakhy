@@ -8,6 +8,7 @@ import 'package:sakhy/ui/styles/styles.dart';
 import 'package:sakhy/ui/views/home/nav_accounts/nav_accountS_controller.dart';
 import 'package:sakhy/ui/views/home/nav_home/banks.dart';
 import 'package:sakhy/ui/views/home/nav_home/nav_home_controller.dart';
+import 'package:sakhy/ui/views/home/nav_home/nav_home_services.dart';
 import 'package:sakhy/ui/widgets/bank_card.dart';
 import 'package:sakhy/ui/widgets/nav_drawer.dart';
 import 'package:sakhy/ui/widgets/nav_home_items.dart';
@@ -26,11 +27,14 @@ class _NavHomeState extends State<NavHome> {
   @override
   void initState() {
     super.initState();
-    getVales();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      getVales();
+    });
   }
 
   getVales() async {
     await _navHomeController.fetchUserBanks();
+    await _navHomeController.fetchUserTansaction();
     await _navHomeController.fetchBanks();
     await _navAccountController.fetchMoneyReqest();
     if (_navAccountController.fetchedMoneyRequestList.isNotEmpty) {
@@ -227,6 +231,7 @@ class _NavHomeState extends State<NavHome> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: SingleChildScrollView(
+                          physics: NeverScrollableScrollPhysics(),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -244,20 +249,52 @@ class _NavHomeState extends State<NavHome> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  navHomeItemsLight(
-                                    "assets/icons/total-in.png",
-                                    "Total in",
-                                    "0 SAR",
-                                    () => Navigator.pushNamed(
-                                        context, route.income),
+                                  Obx(
+                                    () => _navHomeController
+                                            .fetchUserTansactionLoadingprogress
+                                            .value
+                                        ? Center(
+                                            child: CircularProgressIndicator(
+                                            color: AppColors.Alpine,
+                                          ))
+                                        : navHomeItemsLight(
+                                            "assets/icons/total-in.png",
+                                            "Total in",
+                                            "$totalIn SAR",
+                                            () => Navigator.pushNamed(
+                                                context, route.income),
+                                          ),
                                   ),
-                                  navHomeItemsLight(
-                                    "assets/icons/total-out.png",
-                                    "Total out",
-                                    "0 SAR",
-                                    () => Navigator.pushNamed(
-                                        context, route.sepending),
-                                  ),
+                                  // navHomeItemsLight(
+                                  //   "assets/icons/total-in.png",
+                                  //   "Total in",
+                                  //   "0 SAR",
+                                  //   () => Navigator.pushNamed(
+                                  //       context, route.income),
+                                  // ),
+                                  Obx(
+                                    () => _navHomeController
+                                            .fetchUserTansactionLoadingprogress
+                                            .value
+                                        ? Center(
+                                            child: CircularProgressIndicator(
+                                            color: AppColors.Alpine,
+                                          ))
+                                        : navHomeItemsLight(
+                                            "assets/icons/total-out.png",
+                                            "Total out",
+                                            "$totalOut SAR",
+                                            () => Navigator.pushNamed(
+                                                context, route.sepending),
+                                          ),
+                                  )
+                                  // navHomeItemsLight(
+                                  //   "assets/icons/total-out.png",
+                                  //   "Total out",
+                                  //   "0 SAR",
+                                  //   () => Navigator.pushNamed(
+                                  //       context, route.sepending),
+                                  // ),
                                 ],
                               )
                             ],

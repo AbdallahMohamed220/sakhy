@@ -1,11 +1,14 @@
 import 'dart:math';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sakhy/ui/styles/styles.dart';
+import 'package:sakhy/ui/views/home/nav_home/nav_home_services.dart';
+import 'package:sakhy/ui/views/reports/report_controller.dart';
 
 class ReportsScreen extends StatefulWidget {
   @override
@@ -21,6 +24,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
     Colors.pink,
     Colors.redAccent,
   ];
+  ReportController _reportController = Get.put(ReportController());
 
   final Color barBackgroundColor = Colors.transparent;
   final Duration animDuration = const Duration(milliseconds: 250);
@@ -29,12 +33,42 @@ class _ReportsScreenState extends State<ReportsScreen> {
   int touchedIndex = -1;
 
   bool isPlaying = false;
+  @override
+  void initState() {
+    super.initState();
+    initValues();
+  }
+
+  initValues() async {
+    print(DateTime.now().toString().substring(5, 7));
+    await _reportController
+        .fetchUserReport(DateTime.now().toString().substring(5, 7));
+  }
+
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+    print(selectedDate.toString());
+    print(selectedDate.toString().substring(5, 7));
+
+    await _reportController
+        .fetchUserReport(selectedDate.toString().substring(5, 7));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Styles.headingText("ReportsScreen"),
+        title: Styles.headingText("Reports"),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -60,13 +94,21 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Aguest',
+                    DateFormat.MMMM().format(selectedDate),
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         fontSize: 25.sp),
                   ),
-                  Icon(Icons.date_range, color: AppColors.Alpine)
+                  InkWell(
+                    onTap: () {
+                      _selectDate(context);
+                    },
+                    child: Icon(
+                      Icons.date_range,
+                      color: AppColors.Alpine,
+                    ),
+                  )
                 ],
               ),
               Styles.transparentDivider(),
@@ -92,7 +134,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                 fontSize: 16.sp),
                           ),
                           Text(
-                            '+100 SAR',
+                            totalIn.toString(),
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
@@ -120,7 +162,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                 fontSize: 16.sp),
                           ),
                           Text(
-                            '-100 SAR',
+                            '-' + totalOut.toString(),
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
@@ -205,98 +247,114 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 ],
               ),
               Styles.transparentDivider(),
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 5,
-                  physics: BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          height: 150,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF4F4F4F),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(7.r),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(15.w),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Today",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 18.sp,
-                                          color: Colors.white),
+              Obx(() => _reportController.loadingProcess.value
+                  ? Center(
+                      child: CircularProgressIndicator(
+                      color: AppColors.Alpine,
+                    ))
+                  : _reportController.fetchUserReportList.isEmpty
+                      ? Center(
+                          child: Text('Not Found Transactions',
+                              style: TextStyle(
+                                  color: AppColors.Alpine, fontSize: 16)),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemCount:
+                              _reportController.fetchUserReportList.length,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Container(
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF4F4F4F),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(7.r),
                                     ),
-                                    Text(
-                                      "28/8",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14.sp,
-                                          color: Colors.white),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(15.w),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Today",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 18.sp,
+                                                  color: Colors.white),
+                                            ),
+                                            Text(
+                                              _reportController
+                                                  .fetchUserReportList[index]
+                                                  .creationTime
+                                                  .substring(5, 10),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 14.sp,
+                                                  color: Colors.white),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 8.h,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Pandah\nSupermarket",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16.sp,
+                                                  color: Colors.white),
+                                            ),
+                                            Text(
+                                              "+500 SAR",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16.sp,
+                                                color: Color(0xFF4DB6AC),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 8.h,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Rent\nIncom",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16.sp,
+                                                  color: Colors.white),
+                                            ),
+                                            Text(
+                                              '+' + totalIn.toString(),
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16.sp,
+                                                color: Color(0xFF4DB6AC),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                                SizedBox(
-                                  height: 8.h,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Pandah\nSupermarket",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16.sp,
-                                          color: Colors.white),
-                                    ),
-                                    Text(
-                                      "+500 SAR",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16.sp,
-                                        color: Color(0xFF4DB6AC),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 8.h,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Rent\nIncom",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16.sp,
-                                          color: Colors.white),
-                                    ),
-                                    Text(
-                                      "+1000 SAR",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16.sp,
-                                        color: Color(0xFF4DB6AC),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )),
+                              ))),
             ],
           ),
         ),

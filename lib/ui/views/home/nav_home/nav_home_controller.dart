@@ -8,6 +8,7 @@ class NavHomeController extends GetxController {
   var fetchedUserBankList = <Account>[].obs;
   var fetchedBankloadingProcess = false.obs;
   var fetchedUserBankloadingProcess = false.obs;
+  var fetchUserTansactionLoadingprogress = false.obs;
 
   @override
   void onInit() {
@@ -28,9 +29,17 @@ class NavHomeController extends GetxController {
     fetchedUserBankloadingProcess(true);
     var userbankList = await NavHomeServices.fetchUserBanks();
     if (userbankList != null) {
+      fetchedUserBankList.clear();
       fetchedUserBankList.value = userbankList;
     }
 
     fetchedUserBankloadingProcess(false);
+  }
+
+  Future<void> fetchUserTansaction() async {
+    fetchUserTansactionLoadingprogress(true);
+    await NavHomeServices.fetchUserTansaction();
+
+    fetchUserTansactionLoadingprogress(false);
   }
 }

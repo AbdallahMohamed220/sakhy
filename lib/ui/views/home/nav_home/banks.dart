@@ -52,7 +52,8 @@ class _BanksState extends State<Banks> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Styles.headingText("Your Accounts"),
+                //Styles.headingText("Your Accounts"),
+                Styles.transparentDivider(),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -77,7 +78,7 @@ class _BanksState extends State<Banks> {
                               () {
                                 Get.to(
                                   LoginBank(
-                                    banckId: _navHomeController
+                                    bankId: _navHomeController
                                         .fetchedBankList[index].id,
                                   ),
                                 );

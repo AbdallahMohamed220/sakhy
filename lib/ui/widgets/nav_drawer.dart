@@ -8,15 +8,18 @@ import 'package:sakhy/ui/styles/styles.dart';
 import 'package:sakhy/ui/views/reports/reports.dart';
 import 'package:sakhy/ui/views/splash/splash_screen.dart';
 import 'package:sakhy/ui/widgets/profile_item.dart';
-import 'package:sakhy/ui/route/route.dart' as route;
 
 class navDrawer extends StatelessWidget {
   showLogoutDialog(context) {
     return showCupertinoDialog(
       context: context,
       builder: (context) {
-        return CupertinoAlertDialog(
-          title: Text("Are you sure to logout?"),
+        return AlertDialog(
+          backgroundColor: Color(0xFF1C1C1C),
+          title: Text(
+            "Are you sure to logout?",
+            style: TextStyle(color: AppColors.Alpine, fontSize: 17.h),
+          ),
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -28,11 +31,17 @@ class navDrawer extends StatelessWidget {
                   GetStorage().remove("clientId");
                   Get.offAll(SplashScreen());
                 },
-                child: Text("Yes"),
+                child: Text(
+                  "Yes",
+                  style: TextStyle(color: AppColors.Alpine, fontSize: 17.h),
+                ),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text("No"),
+                child: Text(
+                  "No",
+                  style: TextStyle(color: AppColors.Alpine, fontSize: 17.h),
+                ),
               ),
             ],
           ),

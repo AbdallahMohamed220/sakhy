@@ -60,7 +60,10 @@ class SignInController extends GetxController {
     try {
       loadingProcess(true);
       var signInData = await SignInServices.loginInBank(
-          banckId, loginBankemail.text, loginankpassword.text);
+        banckId,
+        loginBankemail.text,
+        loginankpassword.text,
+      );
       if (signInData == 'found') {
         Fluttertoast.showToast(
           msg: 'Your connect to the bank has been added successfully',
@@ -71,7 +74,7 @@ class SignInController extends GetxController {
           textColor: Colors.white,
           fontSize: 16.0,
         );
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 1), () {
           Get.offAll(BottomNavController());
         });
       } else {

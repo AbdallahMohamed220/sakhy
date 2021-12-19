@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Account {
   final String accountName;
   final String accountType;

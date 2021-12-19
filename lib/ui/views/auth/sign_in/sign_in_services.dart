@@ -26,7 +26,6 @@ class SignInServices {
         checkUserFound = 'found';
       }
     });
-    print(checkUserFound);
     return checkUserFound;
   }
 
@@ -43,16 +42,11 @@ class SignInServices {
                 validateStatus: (status) {
                   return status! < 500;
                 }));
-    print(email);
-    print(password);
-    print(response.data);
     final Map<String, dynamic> productListData = response.data;
     String checkUserFound = 'not found';
     productListData.forEach((key, value) {
       if (value['email'] == email && value['password'] == password) {
         final box = GetStorage();
-        print('client id');
-        print(value['id']);
         box.write("clientId", value['id']);
         checkUserFound = 'found';
         addUserBankAccountData(bankId);
@@ -62,9 +56,6 @@ class SignInServices {
   }
 
   static Future<String?> addUserBankAccountData(String bankId) async {
-    print(GetStorage().read('userId'));
-    print(GetStorage().read('clientId'));
-
     String accountId = '';
     Response response = await Dio()
         .get('https://sakhy-7f3ae-default-rtdb.firebaseio.com/accounts.json',
@@ -80,7 +71,8 @@ class SignInServices {
     final Map<String, dynamic> productListData = response.data;
     print(response.data);
     productListData.forEach((key, value) {
-      if (value['client_id'] == GetStorage().read('clientId')) {
+      if (value['client_id'] == GetStorage().read('clientId') &&
+          value['bank_id'] == bankId) {
         accountId = value['account_id'];
       }
     });

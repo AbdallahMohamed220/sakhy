@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:sakhy/models/account.dart';
 import 'package:sakhy/models/beneficiarie.dart';
 
 class BeneficiaryServices {
@@ -126,6 +123,9 @@ class BeneficiaryServices {
             }));
 
     List<Beneficiarie> temp = [];
+    if (response.data == null) {
+      return [];
+    }
 
     final Map<String, dynamic> productAccountsListData = response.data;
     productAccountsListData.forEach((key, value) {
@@ -152,7 +152,9 @@ class BeneficiaryServices {
             }));
 
     List<Beneficiarie> temp = [];
-    print(response.data);
+    if (response.data == null) {
+      return [];
+    }
 
     final Map<String, dynamic> productAccountsListData = response.data;
     productAccountsListData.forEach((key, value) {
@@ -173,15 +175,16 @@ class BeneficiaryServices {
     await Dio().post(
         'https://sakhy-7f3ae-default-rtdb.firebaseio.com/transactions.json',
         data: {
-          'account_id': "",
+          'account_id': GetStorage().read('clientId'),
           'amount': amount,
           'creation_time': DateTime.now().toString(),
           'currency': 'SAR',
           'from': GetStorage().read('userId'),
-          'id': "",
+          'isOut': true,
+          'isIn': false,
           'reason': reason,
           'to': id,
-          'transaction_type': ""
+          'transaction_type': "Send"
         },
         options: Options(
             headers: {
@@ -290,8 +293,6 @@ class BeneficiaryServices {
       },
     );
 
-    print(requestResponce);
-
     return requestResponce;
   }
 
@@ -356,6 +357,29 @@ class BeneficiaryServices {
     String amount,
     String organization,
   ) async {
+    await Dio().post(
+        'https://sakhy-7f3ae-default-rtdb.firebaseio.com/transactions.json',
+        data: {
+          'account_id': GetStorage().read('clientId'),
+          'amount': amount,
+          'creation_time': DateTime.now().toString(),
+          'currency': 'SAR',
+          'from': GetStorage().read('userId'),
+          'isOut': true,
+          'isIn': false,
+          'reason': 'donate',
+          'to': organization,
+          'transaction_type': "donate"
+        },
+        options: Options(
+            headers: {
+              "Content-Type": "application/json",
+            },
+            contentType: "application/x-www-form-urlencoded",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }));
     Response response = await Dio()
         .post('https://sakhy-7f3ae-default-rtdb.firebaseio.com/donation.json',
             data: {
@@ -498,8 +522,29 @@ class BeneficiaryServices {
     String title,
     String billNumber,
   ) async {
-    print('in');
-
+    await Dio().post(
+        'https://sakhy-7f3ae-default-rtdb.firebaseio.com/transactions.json',
+        data: {
+          'account_id': GetStorage().read('clientId'),
+          'amount': amount,
+          'creation_time': DateTime.now().toString(),
+          'currency': 'SAR',
+          'from': GetStorage().read('userId'),
+          'isOut': true,
+          'isIn': false,
+          'reason': 'bill',
+          'to': 'bill',
+          'transaction_type': "bill"
+        },
+        options: Options(
+            headers: {
+              "Content-Type": "application/json",
+            },
+            contentType: "application/x-www-form-urlencoded",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }));
     Response response = await Dio()
         .post('https://sakhy-7f3ae-default-rtdb.firebaseio.com/bills.json',
             data: {

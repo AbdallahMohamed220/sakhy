@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Client {
   final String address;
   final String avatar;

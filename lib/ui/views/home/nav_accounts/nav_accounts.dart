@@ -49,6 +49,11 @@ class _NavAccountsState extends State<NavAccounts> {
         physics: BouncingScrollPhysics(),
         children: [
           Obx(
+            () => _navAccountController.fetchedAccountList.isEmpty
+                ? SizedBox()
+                : Styles.transparentDivider(),
+          ),
+          Obx(
             () => _navAccountController.accountsloadingProcess.value
                 ? Text('')
                 : _navAccountController.fetchedAccountList.isEmpty

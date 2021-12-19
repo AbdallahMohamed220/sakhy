@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Bank {
   final String color;
   final String id;
