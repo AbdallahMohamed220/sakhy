@@ -11,14 +11,14 @@ class SignUpServices {
     String signInStats = '';
     String signUpStats = '';
 
-    signInStats = (await SignInServices.signIn(email, password))!;
+    signInStats = (await SignInServices.signIn(email.toLowerCase(), password))!;
     if (signInStats == 'found') {
       signUpStats = 'fail';
     } else {
       Response response = await Dio()
           .post('https://sakhy-7f3ae-default-rtdb.firebaseio.com/users.json',
               data: {
-                'email': email,
+                'email': email.toLowerCase(),
                 'password': password,
                 'address': "Gedah",
                 'first_name': firstName,
@@ -41,7 +41,7 @@ class SignUpServices {
         await Dio().put(
             'https://sakhy-7f3ae-default-rtdb.firebaseio.com/users/${response.data['name']}.json',
             data: {
-              'email': email,
+              'email': email.toLowerCase(),
               'password': password,
               'address': "Gedah",
               'first_name': firstName,

@@ -1,20 +1,14 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sakhy/models/account.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
-import 'package:sakhy/ui/route/route.dart' as route;
 import 'package:sakhy/ui/styles/styles.dart';
 import 'package:sakhy/ui/views/home/nav_accounts/nav_accountS_controller.dart';
-import 'package:sakhy/ui/views/home/nav_accounts/nav_accounts_services.dart';
 import 'package:sakhy/ui/views/home/nav_accounts/send_request_money_controller.dart';
 import 'package:sakhy/ui/views/home/nav_payments/Beneficiary_controller.dart';
-import 'package:sakhy/ui/widgets/bank_card.dart';
 import 'package:sakhy/ui/widgets/form_field.dart';
 import 'package:sakhy/ui/widgets/full_width_button.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 class SendMoney extends StatefulWidget {
   @override

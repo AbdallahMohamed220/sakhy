@@ -12,7 +12,7 @@ class Account {
 
   final String iban;
 
-  final String id;
+  String id;
 
   Account(
     this.accountName,

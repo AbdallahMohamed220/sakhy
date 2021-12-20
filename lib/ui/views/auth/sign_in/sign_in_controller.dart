@@ -7,17 +7,13 @@ import 'package:sakhy/ui/views/home/bottom_nav_controller.dart';
 
 class SignInController extends GetxController {
   var loadingProcess = false.obs;
-  final TextEditingController email =
-      TextEditingController(text: "khaledfh@yahoo.com");
+  final TextEditingController email = TextEditingController();
 
-  final TextEditingController password =
-      TextEditingController(text: 'myahia23');
+  final TextEditingController password = TextEditingController();
 
-  final TextEditingController loginBankemail =
-      TextEditingController(text: "Test@sakhy.tech");
+  final TextEditingController loginBankemail = TextEditingController();
 
-  final TextEditingController loginankpassword =
-      TextEditingController(text: '123456');
+  final TextEditingController loginankpassword = TextEditingController();
   final signInformKey = GlobalKey<FormState>();
   final signInBankformKey = GlobalKey<FormState>();
 

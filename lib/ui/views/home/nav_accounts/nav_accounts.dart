@@ -138,7 +138,8 @@ class _NavAccountsState extends State<NavAccounts> {
           Obx(
             () => _navAccountController.cardsloadingProcess.value
                 ? Text('')
-                : _navAccountController.fetchedCreditCardList.isEmpty
+                : _navAccountController.fetchedCreditCardList.isEmpty &&
+                        _navAccountController.fetchedAccountList.isEmpty
                     ? Padding(
                         padding: EdgeInsets.only(left: 15),
                         child: Text(
@@ -150,17 +151,19 @@ class _NavAccountsState extends State<NavAccounts> {
                           ),
                         ),
                       )
-                    : Padding(
-                        padding: EdgeInsets.only(left: 15),
-                        child: Text(
-                          'Credit Cards',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20.sp,
-                            color: Colors.white,
+                    : _navAccountController.fetchedCreditCardList.isEmpty
+                        ? Text('')
+                        : Padding(
+                            padding: EdgeInsets.only(left: 15),
+                            child: Text(
+                              'Credit Cards',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20.sp,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
           ),
           Styles.transparentDivider(),
           Padding(

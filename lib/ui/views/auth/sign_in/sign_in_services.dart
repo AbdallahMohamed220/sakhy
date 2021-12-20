@@ -17,7 +17,8 @@ class SignInServices {
     final Map<String, dynamic> productListData = response.data;
     String checkUserFound = 'not found';
     productListData.forEach((key, value) {
-      if (value['email'] == email && value['password'] == password) {
+      if (value['email'] == email.toLowerCase() &&
+          value['password'] == password) {
         final box = GetStorage();
         box.write("email", value['email']);
         box.write("userName", value['first_name'] + ' ' + value['last_name']);

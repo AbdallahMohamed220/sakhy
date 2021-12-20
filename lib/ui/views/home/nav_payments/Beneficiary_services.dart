@@ -230,6 +230,7 @@ class BeneficiaryServices {
                 'balance': (int.parse(value['balance']) - int.parse(amount))
                     .toString(),
                 'bank_id': value['bank_id'],
+                'bank_logo': value['bank_logo'],
                 'bank_name': value['bank_name'],
                 'client_id': value['client_id'],
                 'card_number': value['card_number'],
@@ -271,6 +272,7 @@ class BeneficiaryServices {
                   'balance': (int.parse(value['balance']) - int.parse(amount))
                       .toString(),
                   'bank_id': value['bank_id'],
+                  'bank_logo': value['bank_logo'],
                   'bank_name': value['bank_name'],
                   'client_id': value['client_id'],
                   'card_number': value['card_number'],
@@ -451,6 +453,7 @@ class BeneficiaryServices {
                 'balance': (int.parse(value['balance']) - int.parse(amount))
                     .toString(),
                 'bank_id': value['bank_id'],
+                'bank_logo': value['bank_logo'],
                 'bank_name': value['bank_name'],
                 'client_id': value['client_id'],
                 'card_number': value['card_number'],
@@ -492,6 +495,7 @@ class BeneficiaryServices {
                   'balance': (int.parse(value['balance']) - int.parse(amount))
                       .toString(),
                   'bank_id': value['bank_id'],
+                  'bank_logo': value['bank_logo'],
                   'bank_name': value['bank_name'],
                   'client_id': value['client_id'],
                   'card_number': value['card_number'],
@@ -628,6 +632,7 @@ class BeneficiaryServices {
                 'balance': (int.parse(value['balance']) - int.parse(amount))
                     .toString(),
                 'bank_id': value['bank_id'],
+                'bank_logo': value['bank_logo'],
                 'bank_name': value['bank_name'],
                 'client_id': value['client_id'],
                 'card_number': value['card_number'],
@@ -669,6 +674,7 @@ class BeneficiaryServices {
                   'balance': (int.parse(value['balance']) - int.parse(amount))
                       .toString(),
                   'bank_id': value['bank_id'],
+                  'bank_logo': value['bank_logo'],
                   'bank_name': value['bank_name'],
                   'client_id': value['client_id'],
                   'card_number': value['card_number'],

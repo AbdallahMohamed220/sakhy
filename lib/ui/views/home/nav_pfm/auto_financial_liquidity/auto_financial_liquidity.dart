@@ -2,15 +2,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:sakhy/models/account.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
 import 'package:sakhy/ui/styles/styles.dart';
+import 'package:sakhy/ui/views/home/nav_accounts/nav_accountS_controller.dart';
+import 'package:sakhy/ui/views/home/nav_pfm/account_aggregation/qr_view.dart';
 import 'package:sakhy/ui/views/home/nav_pfm/auto_financial_liquidity/auto_financial_liquidity_add_bill.dart';
 import 'package:sakhy/ui/widgets/form_field.dart';
 import 'package:sakhy/ui/widgets/full_width_button.dart';
 
-class AutoFinancialLiquidity extends StatelessWidget {
-  final TextEditingController _amountController = TextEditingController();
+class AutoFinancialLiquidity extends StatefulWidget {
+  @override
+  State<AutoFinancialLiquidity> createState() => _AutoFinancialLiquidityState();
+}
+
+class _AutoFinancialLiquidityState extends State<AutoFinancialLiquidity> {
   final TextEditingController controller = TextEditingController();
+  String _chooseAccount = "Choose Account";
+  String accountBalance = "0.0";
+
+  NavAccountController _navAccountController = Get.put(NavAccountController());
+
+  String beneficiaryName = '';
+  @override
+  void initState() {
+    super.initState();
+    _navAccountController.fetchAccounts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +55,9 @@ class AutoFinancialLiquidity extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Styles.transparentDivider(),
               Styles.transparentDivider(),
               Styles.transparentDivider(),
               Row(
@@ -54,46 +75,55 @@ class AutoFinancialLiquidity extends StatelessWidget {
                   color: Colors.transparent,
                   border: Border.all(color: Colors.white, width: 1),
                 ),
-                child: DropdownButton<String>(
-                  hint: Padding(
-                    padding: EdgeInsets.only(
-                        left: 15, bottom: 11, top: 11, right: 15),
-                    child: Text(
-                      'From Account',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15.sp),
-                    ),
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: Color(0xff333333),
                   ),
-                  icon: IconButton(
-                    onPressed: null,
-                    icon: Icon(
-                      Icons.arrow_downward,
-                      color: AppColors.Alpine,
-                      size: 20.w,
-                    ),
-                  ),
-                  isExpanded: true,
-                  iconSize: 18,
-                  underline: Container(
-                    height: 0,
-                    color: Colors.transparent,
-                  ),
-                  onChanged: (String? newValue) {},
-                  items: <String>['One', 'Two', 'Three', 'Four']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
+                  child: DropdownButton(
+                    hint: Padding(
+                      padding: EdgeInsets.only(
+                          left: 15, bottom: 11, top: 11, right: 15),
                       child: Text(
-                        value,
+                        _chooseAccount,
                         style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontWeight: FontWeight.w600,
                             fontSize: 15.sp),
                       ),
-                    );
-                  }).toList(),
+                    ),
+                    icon: IconButton(
+                      onPressed: null,
+                      icon: Icon(
+                        Icons.arrow_downward,
+                        color: AppColors.Alpine,
+                        size: 20.w,
+                      ),
+                    ),
+                    isExpanded: true,
+                    iconSize: 18,
+                    underline: Container(
+                      height: 0,
+                      color: Colors.transparent,
+                    ),
+                    onChanged: (Account? newValue) {
+                      setState(() {
+                        _chooseAccount = newValue!.accountName;
+                      });
+                    },
+                    items: _navAccountController.fetchedAccountList
+                        .map((location) {
+                      return DropdownMenuItem(
+                        child: Text(
+                          location.accountName,
+                          style: TextStyle(
+                              color: AppColors.Alpine,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15.sp),
+                        ),
+                        value: location,
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
               Styles.transparentDivider(),
@@ -105,46 +135,51 @@ class AutoFinancialLiquidity extends StatelessWidget {
                   color: Colors.transparent,
                   border: Border.all(color: Colors.white, width: 1),
                 ),
-                child: DropdownButton<String>(
-                  hint: Padding(
-                    padding: EdgeInsets.only(
-                        left: 15, bottom: 11, top: 11, right: 15),
-                    child: Text(
-                      'Month or one Time',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15.sp),
-                    ),
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: Color(0xff333333),
                   ),
-                  icon: IconButton(
-                    onPressed: null,
-                    icon: Icon(
-                      Icons.arrow_downward,
-                      color: AppColors.Alpine,
-                      size: 20.w,
-                    ),
-                  ),
-                  isExpanded: true,
-                  iconSize: 18,
-                  underline: Container(
-                    height: 0,
-                    color: Colors.transparent,
-                  ),
-                  onChanged: (String? newValue) {},
-                  items: <String>['One', 'Two', 'Three', 'Four']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
+                  child: DropdownButton<String>(
+                    hint: Padding(
+                      padding: EdgeInsets.only(
+                          left: 15, bottom: 11, top: 11, right: 15),
                       child: Text(
-                        value,
+                        'Month or one Time',
                         style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontWeight: FontWeight.w600,
                             fontSize: 15.sp),
                       ),
-                    );
-                  }).toList(),
+                    ),
+                    icon: IconButton(
+                      onPressed: null,
+                      icon: Icon(
+                        Icons.arrow_downward,
+                        color: AppColors.Alpine,
+                        size: 20.w,
+                      ),
+                    ),
+                    isExpanded: true,
+                    iconSize: 18,
+                    underline: Container(
+                      height: 0,
+                      color: Colors.transparent,
+                    ),
+                    onChanged: (String? newValue) {},
+                    items: <String>['Monthly', 'one Time']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: TextStyle(
+                              color: AppColors.Alpine,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15.sp),
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
               Styles.transparentDivider(),
@@ -153,6 +188,25 @@ class AutoFinancialLiquidity extends StatelessWidget {
                 () {
                   Get.to(AutoFinancialLiquidityAddBill());
                 },
+              ),
+              Styles.transparentDivider(),
+              Styles.transparentDivider(),
+              Text(
+                'OR',
+                style: TextStyle(fontSize: 20.h),
+              ),
+              Styles.transparentDivider(),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Get.to(QRScreen());
+                  },
+                  child: Icon(
+                    Icons.qr_code,
+                    size: 80,
+                    color: AppColors.Alpine,
+                  ),
+                ),
               ),
             ],
           ),
