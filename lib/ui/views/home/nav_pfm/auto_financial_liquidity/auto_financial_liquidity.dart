@@ -191,11 +191,6 @@ class _AutoFinancialLiquidityState extends State<AutoFinancialLiquidity> {
               ),
               Styles.transparentDivider(),
               Styles.transparentDivider(),
-              Text(
-                'OR',
-                style: TextStyle(fontSize: 20.h),
-              ),
-              Styles.transparentDivider(),
               Center(
                 child: GestureDetector(
                   onTap: () {

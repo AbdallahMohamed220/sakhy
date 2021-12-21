@@ -191,7 +191,7 @@ class _AccountAggregatorAmountState extends State<AccountAggregatorAmount> {
                                         _navAccountController
                                                 .fetchedAccountList[index]
                                                 .balance +
-                                            'SAR',
+                                            ' SAR',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 14.sp,
