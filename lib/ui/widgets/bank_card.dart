@@ -26,7 +26,9 @@ Widget banksCard(bankName, color, identifier, imagePath, onClick, context) {
           ),
           fit: BoxFit.cover,
           colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.5), BlendMode.dstATop),
+            Colors.black.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(8.r),
@@ -141,14 +143,14 @@ Widget bankCard(
         borderRadius: BorderRadius.all(
           Radius.circular(8.r),
         ),
-        gradient: RadialGradient(
-          colors: [
-            Color(0xFFFFFFFF),
-            Color(0xFFFFFFFF).withOpacity(0),
-          ],
-          //stops: [0.9, 0.9],
-          radius: 2,
-        ),
+        // gradient: RadialGradient(
+        //   colors: [
+        //     Color(0xFFFFFFFF),
+        //     Color(0xFFFFFFFF).withOpacity(0),
+        //   ],
+        //   //stops: [0.9, 0.9],
+        //   radius: 2,
+        // ),
       ),
       child: ElevatedButton(
         child: Padding(
@@ -280,32 +282,72 @@ Widget bankCard(
   );
 }
 
-Widget sakhyCard(color, bankName, balance, onClick, context) {
+Widget sakhyCard(
+    color, cardNumber, bankName, balance, imagePath, onClick, context) {
   return Padding(
     padding: EdgeInsets.only(bottom: 15.h),
     child: Container(
       height: 160.h,
-      width: ScreenUtil().screenWidth * .9,
+      width: ScreenUtil().screenWidth * .86,
       decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x3f000000),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
         image: DecorationImage(
           image: AssetImage(
             "assets/images/card-background.PNG",
           ),
           fit: BoxFit.cover,
           colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.2), BlendMode.dstATop),
+            Colors.black.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(15.r),
         ),
-        gradient: RadialGradient(
-          colors: [
-            Color(0xFF5B4A1C),
-            Color(0xFF302206),
-          ],
-          radius: 1,
-        ),
+        // gradient: RadialGradient(
+        //   colors: [
+        //     Color(0xFF5B4A1C),
+        //     Color(0xFF302206),
+        //   ],
+        //   radius: 1,
+        // ),
       ),
+      // BoxDecoration(
+
+      //   boxShadow: [
+      //     // BoxShadow(
+      //     //   color: Color(0x3f000000),
+      //     //   blurRadius: 4,
+      //     //   offset: Offset(0, 4),
+      //     // ),
+      //   ],
+      //   image: DecorationImage(
+      //     image: AssetImage(
+      //       "assets/images/card-background.PNG",
+      //     ),
+      //     fit: BoxFit.cover,
+      //     // colorFilter: new ColorFilter.mode(
+      //     //   Colors.black.withOpacity(0.2),
+      //     //   BlendMode.dstATop,
+      //     // ),
+      //   ),
+      //   borderRadius: BorderRadius.all(
+      //     Radius.circular(15.r),
+      //   ),
+      //   gradient: RadialGradient(
+      //     colors: [
+      //       Color(0xFF5B4A1C),
+      //       Color(0xFF302206),
+      //     ],
+      //     radius: 1,
+      //   ),
+      // ),
       child: ElevatedButton(
         child: Padding(
           padding:
@@ -327,11 +369,11 @@ Widget sakhyCard(color, bankName, balance, onClick, context) {
                   ),
                   Align(
                     alignment: Alignment.topRight,
-                    child: Image.asset(
-                      "assets/icons/sakhy.png",
-                      width: 42.w,
+                    child: Image.network(
+                      imagePath,
+                      width: 50.w,
                       height: 28.h,
-                      fit: BoxFit.fill,
+                      fit: BoxFit.contain,
                       color: AppColors.Alpine,
                     ),
                   ),
@@ -452,7 +494,7 @@ Widget sakhyCard(color, bankName, balance, onClick, context) {
         ),
         onPressed: onClick,
         style: ElevatedButton.styleFrom(
-          primary: Color(color),
+          primary: Color(color).withOpacity(0.5),
           padding: EdgeInsets.all(0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
@@ -485,19 +527,21 @@ Widget smallBankCard(
           ),
           fit: BoxFit.cover,
           colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.5), BlendMode.dstATop),
+            Colors.black.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(8.r),
         ),
-        gradient: RadialGradient(
-          colors: [
-            Color(0xFFFFFFFF),
-            Color(0xFFFFFFFF).withOpacity(0),
-          ],
-          //stops: [0.9, 0.9],
-          radius: 2,
-        ),
+        // gradient: RadialGradient(
+        //   colors: [
+        //     Color(0xFFFFFFFF),
+        //     Color(0xFFFFFFFF).withOpacity(0),
+        //   ],
+        //   //stops: [0.9, 0.9],
+        //   radius: 2,
+        // ),
       ),
       child: ElevatedButton(
         child: Padding(

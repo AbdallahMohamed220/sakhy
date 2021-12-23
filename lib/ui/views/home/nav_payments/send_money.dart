@@ -7,8 +7,10 @@ import 'package:sakhy/ui/styles/styles.dart';
 import 'package:sakhy/ui/views/home/nav_accounts/nav_accountS_controller.dart';
 import 'package:sakhy/ui/views/home/nav_accounts/send_request_money_controller.dart';
 import 'package:sakhy/ui/views/home/nav_payments/Beneficiary_controller.dart';
+import 'package:sakhy/ui/widgets/bank_card.dart';
 import 'package:sakhy/ui/widgets/form_field.dart';
 import 'package:sakhy/ui/widgets/full_width_button.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class SendMoney extends StatefulWidget {
   @override
@@ -33,9 +35,8 @@ class _SendMoneyState extends State<SendMoney> {
       Get.put(SendRequestMoneyController());
 
   String beneficiaryName = '';
-  String _chooseAccount = "Choose Account";
   String accountBalance = "0.0";
-  bool _showBalance = false;
+  bool _formbeneficiary = true;
 
   @override
   void initState() {
@@ -61,7 +62,7 @@ class _SendMoneyState extends State<SendMoney> {
       ),
       body: Form(
         key: _sendRequestMoneyController.sendMoneyKey,
-        child: Obx(() => _beneficiaryController.loadingProcess.value &&
+        child: Obx(() => _beneficiaryController.loadingProcess.value ||
                 _navAccountController.accountsloadingProcess.value
             ? Center(
                 child: CircularProgressIndicator(
@@ -81,99 +82,84 @@ class _SendMoneyState extends State<SendMoney> {
                     children: [
                       Styles.transparentDivider(),
                       Container(
-                        width: ScreenUtil().screenWidth,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(color: Colors.white, width: 1),
-                        ),
-                        child: Theme(
-                          data: Theme.of(context).copyWith(
-                            canvasColor: Color(0xff333333),
-                          ),
-                          child: DropdownButton(
-                            hint: Padding(
-                              padding: EdgeInsets.only(
-                                  left: 15, bottom: 11, top: 11, right: 15),
-                              child: Text(
-                                _chooseAccount,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15.sp),
-                              ),
-                            ),
-                            icon: IconButton(
-                              onPressed: null,
-                              icon: Icon(
-                                Icons.arrow_downward,
-                                color: AppColors.Alpine,
-                                size: 20.w,
-                              ),
-                            ),
-                            isExpanded: true,
-                            iconSize: 18,
-                            underline: Container(
-                              height: 0,
-                              color: Colors.transparent,
-                            ),
-                            onChanged: (Account? newValue) {
-                              setState(() {
-                                _chooseAccount = newValue!.accountName;
+                        height: 170.h,
+                        child: ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount:
+                              _navAccountController.fetchedAccountList.length,
+                          itemBuilder: (context, i) {
+                            _sendRequestMoneyController.bankName =
+                                _navAccountController
+                                    .fetchedAccountList[0].accountName;
+                            return VisibilityDetector(
+                              key: Key("unique key"),
+                              onVisibilityChanged: (VisibilityInfo info) {
                                 _sendRequestMoneyController.bankName =
-                                    _chooseAccount;
-                                accountBalance = newValue.balance;
-                              });
-                            },
-                            items: _navAccountController.fetchedAccountList
-                                .map((location) {
-                              return DropdownMenuItem(
-                                child: Text(
-                                  location.accountName,
-                                  style: TextStyle(
-                                      color: AppColors.Alpine,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15.sp),
+                                    _navAccountController
+                                        .fetchedAccountList[i].accountName;
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                child: sakhyCard(
+                                  int.parse(_navAccountController
+                                      .fetchedAccountList[i].color),
+                                  _navAccountController
+                                      .fetchedAccountList[i].cardNumber,
+                                  _navAccountController
+                                      .fetchedAccountList[i].bankName,
+                                  "${_navAccountController.fetchedAccountList[i].balance} SAR",
+                                  _navAccountController
+                                      .fetchedAccountList[i].bankLogo,
+                                  () {},
+                                  context,
                                 ),
-                                value: location,
-                              );
-                            }).toList(),
-                          ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                       Styles.transparentDivider(),
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              _showBalance = !_showBalance;
-                              setState(() {});
-                            },
-                            child: Icon(
-                              _showBalance
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: AppColors.Alpine,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 8.h,
-                          ),
-                          Text(
-                            _showBalance ? accountBalance : 'Show Balance',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                            ),
-                          )
-                        ],
-                      ),
-                      Styles.transparentDivider(),
+                      // Row(
+                      //   children: [
+                      //     InkWell(
+                      //       onTap: () {
+                      //         _showBalance = !_showBalance;
+                      //         setState(() {});
+                      //       },
+                      //       child: Icon(
+                      //         _showBalance
+                      //             ? Icons.visibility
+                      //             : Icons.visibility_off,
+                      //         color: AppColors.Alpine,
+                      //       ),
+                      //     ),
+                      //     SizedBox(
+                      //       width: 8.h,
+                      //     ),
+                      //     Text(
+                      //       _showBalance ? accountBalance : 'Show Balance',
+                      //       style: TextStyle(
+                      //         fontSize: 14.sp,
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
+
                       Row(
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  _formbeneficiary = true;
+                                });
+                              },
                               style: ElevatedButton.styleFrom(
-                                primary: Color(0xFF4F4F4F),
+                                primary: _formbeneficiary
+                                    ? AppColors.Alpine
+                                    : Color(0xFF4F4F4F),
                                 elevation: 3,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
@@ -199,9 +185,15 @@ class _SendMoneyState extends State<SendMoney> {
                           ),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  _formbeneficiary = false;
+                                });
+                              },
                               style: ElevatedButton.styleFrom(
-                                primary: Color(0xFF4F4F4F),
+                                primary: !_formbeneficiary
+                                    ? AppColors.Alpine
+                                    : Color(0xFF4F4F4F),
                                 elevation: 3,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
@@ -224,7 +216,9 @@ class _SendMoneyState extends State<SendMoney> {
                           )
                         ],
                       ),
-                      Styles.transparentDivider(),
+                      SizedBox(
+                        height: 15,
+                      ),
                       AspectRatio(
                         aspectRatio: 3.7,
                         child: Container(
@@ -287,7 +281,9 @@ class _SendMoneyState extends State<SendMoney> {
                           ),
                         ),
                       ),
-                      Styles.transparentDivider(),
+                      SizedBox(
+                        height: 15,
+                      ),
                       formField(
                         TextInputType.number,
                         false,
@@ -297,7 +293,7 @@ class _SendMoneyState extends State<SendMoney> {
                         context,
                         "Amount SAR",
                       ),
-                      Styles.transparentDivider(),
+
                       SizedBox(
                         height: 5.h,
                       ),
@@ -308,8 +304,9 @@ class _SendMoneyState extends State<SendMoney> {
                         true,
                         Icons.description,
                         context,
-                        "transaction Description",
+                        "Transaction Description",
                       ),
+                      Styles.transparentDivider(),
                       Styles.transparentDivider(),
                       Obx(
                         () => _sendRequestMoneyController.loadingProcess.value

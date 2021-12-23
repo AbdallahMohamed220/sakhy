@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sakhy/ui/styles/styles.dart';
+import 'package:sakhy/ui/views/home/nav_home/nav_home_services.dart';
 
 class Income extends StatefulWidget {
   @override
@@ -81,13 +82,12 @@ class _IncomeState extends State<Income> {
                   )),
                 ),
                 title: Text(
-                  "1000 SAR",
+                  totalIn.toString() + " SAR",
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w400,
                       fontSize: 16.sp),
                 ),
-                
                 dense: true,
               ),
               Styles.transparentDivider(),
@@ -109,87 +109,87 @@ class _IncomeState extends State<Income> {
               Styles.transparentDivider(),
               Styles.headingText("Total In"),
               Styles.transparentDivider(),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFF4F4F4F),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(7.r),
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(20.w),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Today",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18.sp,
-                                color: Colors.white),
-                          ),
-                          Text(
-                            "28/8",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14.sp,
-                                color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Pandah\nSupermarket",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.sp,
-                                color: Colors.white),
-                          ),
-                          Text(
-                            "+500 SAR",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                              color: Color(0xFF4DB6AC),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Rent\nIncome",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.sp,
-                                color: Colors.white),
-                          ),
-                          Text(
-                            "+1000 SAR",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                              color: Color(0xFF4DB6AC),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: Color(0xFF4F4F4F),
+              //     borderRadius: BorderRadius.all(
+              //       Radius.circular(7.r),
+              //     ),
+              //   ),
+              //   child: Padding(
+              //     padding: EdgeInsets.all(20.w),
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Text(
+              //               "Today",
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w600,
+              //                   fontSize: 18.sp,
+              //                   color: Colors.white),
+              //             ),
+              //             Text(
+              //               "28/8",
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w400,
+              //                   fontSize: 14.sp,
+              //                   color: Colors.white),
+              //             ),
+              //           ],
+              //         ),
+              //         SizedBox(
+              //           height: 8.h,
+              //         ),
+              //         Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Text(
+              //               "Pandah\nSupermarket",
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w600,
+              //                   fontSize: 14.sp,
+              //                   color: Colors.white),
+              //             ),
+              //             Text(
+              //               "+500 SAR",
+              //               style: TextStyle(
+              //                 fontWeight: FontWeight.w600,
+              //                 fontSize: 14.sp,
+              //                 color: Color(0xFF4DB6AC),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //         SizedBox(
+              //           height: 8.h,
+              //         ),
+              //         Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Text(
+              //               "Rent\nIncome",
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w600,
+              //                   fontSize: 14.sp,
+              //                   color: Colors.white),
+              //             ),
+              //             Text(
+              //               "+1000 SAR",
+              //               style: TextStyle(
+              //                 fontWeight: FontWeight.w600,
+              //                 fontSize: 14.sp,
+              //                 color: Color(0xFF4DB6AC),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

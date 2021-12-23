@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
 import 'package:sakhy/ui/styles/styles.dart';
+import 'package:sakhy/ui/views/home/nav_accounts/card_details.dart';
 import 'package:sakhy/ui/views/home/nav_accounts/nav_accountS_controller.dart';
 import 'package:sakhy/ui/views/home/nav_home/banks.dart';
 import 'package:sakhy/ui/views/home/nav_home/nav_home_controller.dart';
@@ -36,6 +37,7 @@ class _NavHomeState extends State<NavHome> {
     await _navHomeController.fetchUserBanks();
     await _navHomeController.fetchUserTansaction();
     await _navHomeController.fetchBanks();
+    await _navAccountController.fetchAccounts();
     await _navAccountController.fetchMoneyReqest();
     if (_navAccountController.fetchedMoneyRequestList.isNotEmpty) {
       showDialog(
@@ -210,20 +212,31 @@ class _NavHomeState extends State<NavHome> {
                         (BuildContext context, int index) => Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           child: smallBankCard(
-                              _navHomeController
-                                  .fetchedUserBankList[index].bankName,
-                              int.parse(_navHomeController
-                                  .fetchedUserBankList[index].color),
-                              Icons.ac_unit_outlined,
-                              _navHomeController
-                                  .fetchedUserBankList[index].balance,
-                              _navHomeController
-                                  .fetchedUserBankList[index].cardNumber,
-                              _navHomeController
-                                  .fetchedUserBankList[index].bankLogo,
-                              () => Navigator.pushNamed(
-                                  context, route.cardDetails),
-                              context),
+                            _navHomeController
+                                .fetchedUserBankList[index].bankName,
+                            int.parse(_navHomeController
+                                .fetchedUserBankList[index].color),
+                            Icons.ac_unit_outlined,
+                            _navHomeController
+                                .fetchedUserBankList[index].balance,
+                            _navHomeController
+                                .fetchedUserBankList[index].cardNumber,
+                            _navHomeController
+                                .fetchedUserBankList[index].bankLogo,
+                            () => Get.to(
+                              CardDetails(
+                                bankName: _navAccountController
+                                    .fetchedAccountList[index].bankName,
+                                bankBalance: _navAccountController
+                                    .fetchedAccountList[index].balance,
+                                iban: _navAccountController
+                                    .fetchedAccountList[index].iban,
+                                color: _navAccountController
+                                    .fetchedAccountList[index].color,
+                              ),
+                            ),
+                            context,
+                          ),
                         ),
                         childCount:
                             _navHomeController.fetchedUserBankList.length,

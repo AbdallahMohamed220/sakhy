@@ -84,9 +84,8 @@ class _AccountAggregatorAmountState extends State<AccountAggregatorAmount> {
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(width: 2, color: AppColors.Alpine),
                     ),
-                    hintText: 'Amount ' +
-                        _accountAggregatorController.sendAmount.text +
-                        ' SAR',
+                    hintText:
+                        _accountAggregatorController.sendAmount.text + ' SAR',
                     hintStyle: TextStyle(
                       fontSize: 14.sp,
                       color: Color(0xffF2F2F2),
@@ -109,6 +108,7 @@ class _AccountAggregatorAmountState extends State<AccountAggregatorAmount> {
                   )
                 : Expanded(
                     child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
                       itemCount:
                           _navAccountController.fetchedAccountList.length,
                       itemBuilder: (context, index) => GestureDetector(

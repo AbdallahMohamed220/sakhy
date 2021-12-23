@@ -66,7 +66,7 @@ class _AutoFinancialLiquidityState extends State<AutoFinancialLiquidity> {
               ),
               Styles.transparentDivider(),
               formField(TextInputType.text, false, controller, true,
-                  Icons.person_outline, context, "Bill Name"),
+                  Icons.person_outline, context, "Bill Serial Number"),
               formField(TextInputType.text, false, controller, true,
                   Icons.money, context, "Amount SAR"),
               Container(

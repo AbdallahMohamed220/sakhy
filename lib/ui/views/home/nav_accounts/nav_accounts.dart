@@ -103,7 +103,7 @@ class _NavAccountsState extends State<NavAccounts> {
                       itemBuilder: (_, index) {
                         return smallBankCard(
                             _navAccountController
-                                .fetchedAccountList[index].accountName,
+                                .fetchedAccountList[index].bankName,
                             int.parse(_navAccountController
                                 .fetchedAccountList[index].color),
                             Icons.ac_unit_outlined,
@@ -116,7 +116,7 @@ class _NavAccountsState extends State<NavAccounts> {
                             () => Get.to(
                                   CardDetails(
                                     bankName: _navAccountController
-                                        .fetchedAccountList[index].accountName,
+                                        .fetchedAccountList[index].bankName,
                                     bankBalance: _navAccountController
                                         .fetchedAccountList[index].balance,
                                     iban: _navAccountController

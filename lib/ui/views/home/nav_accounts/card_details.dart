@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sakhy/ui/styles/styles.dart';
+import 'package:sakhy/ui/views/home/nav_accounts/request_money.dart';
 import 'package:sakhy/ui/views/home/nav_accounts/send_request_money.dart';
 import 'package:sakhy/ui/widgets/accounts_small_item.dart';
-import 'package:sakhy/ui/route/route.dart' as route;
 import 'package:sakhy/ui/widgets/bank_card.dart';
 
 class CardDetails extends StatefulWidget {
@@ -70,12 +70,18 @@ class _CardDetailsState extends State<CardDetails> {
                     //   Navigator.pushNamed(context, route.sendRequestMoney);
                     // }, Icons.call_made_outlined, "Send"),
                     accountSmallItem(() {
-                      Get.to(SendRequestMoney(
-                        balance: widget.bankBalance,
-                      ));
+                      Get.to(
+                        SendRequestMoney(
+                            // balance: widget.bankBalance,
+                            ),
+                      );
                     }, Icons.call_made_outlined, "Send"),
                     accountSmallItem(() {
-                      Navigator.pushNamed(context, route.sendRequestMoney);
+                      Get.to(
+                        RequestMoney(
+                            //  balance: widget.bankBalance,
+                            ),
+                      );
                     }, Icons.call_received_outlined, "Receive"),
                     accountSmallItem(() {}, Icons.article_outlined, "Bill"),
                     accountSmallItem(() {}, Icons.volunteer_activism, "Donate"),
@@ -132,87 +138,87 @@ class _CardDetailsState extends State<CardDetails> {
                   ],
                 ),
                 Styles.transparentDivider(),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFF4F4F4F),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(7.r),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(20.w),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Today",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18.sp,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              "28/8",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14.sp,
-                                  color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Pandah\nSupermarket",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14.sp,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              "+500 SAR",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.sp,
-                                color: Color(0xFF4DB6AC),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Transfer from Ahmed\nPersonal",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14.sp,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              "+1000 SAR",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.sp,
-                                color: Color(0xFF4DB6AC),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+                // Container(
+                //   decoration: BoxDecoration(
+                //     color: Color(0xFF4F4F4F),
+                //     borderRadius: BorderRadius.all(
+                //       Radius.circular(7.r),
+                //     ),
+                //   ),
+                //   child: Padding(
+                //     padding: EdgeInsets.all(20.w),
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Text(
+                //               "Today",
+                //               style: TextStyle(
+                //                   fontWeight: FontWeight.w600,
+                //                   fontSize: 18.sp,
+                //                   color: Colors.white),
+                //             ),
+                //             Text(
+                //               "28/8",
+                //               style: TextStyle(
+                //                   fontWeight: FontWeight.w400,
+                //                   fontSize: 14.sp,
+                //                   color: Colors.white),
+                //             ),
+                //           ],
+                //         ),
+                //         SizedBox(
+                //           height: 8.h,
+                //         ),
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Text(
+                //               "Pandah\nSupermarket",
+                //               style: TextStyle(
+                //                   fontWeight: FontWeight.w600,
+                //                   fontSize: 14.sp,
+                //                   color: Colors.white),
+                //             ),
+                //             Text(
+                //               "+500 SAR",
+                //               style: TextStyle(
+                //                 fontWeight: FontWeight.w600,
+                //                 fontSize: 14.sp,
+                //                 color: Color(0xFF4DB6AC),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //         SizedBox(
+                //           height: 8.h,
+                //         ),
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Text(
+                //               "Transfer from Ahmed\nPersonal",
+                //               style: TextStyle(
+                //                   fontWeight: FontWeight.w600,
+                //                   fontSize: 14.sp,
+                //                   color: Colors.white),
+                //             ),
+                //             Text(
+                //               "+1000 SAR",
+                //               style: TextStyle(
+                //                 fontWeight: FontWeight.w600,
+                //                 fontSize: 14.sp,
+                //                 color: Color(0xFF4DB6AC),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // )
               ],
             ),
           ),

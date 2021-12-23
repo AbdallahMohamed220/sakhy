@@ -210,152 +210,159 @@ class _ReportsScreenState extends State<ReportsScreen> {
                       height: 55.h,
                       width: ScreenUtil().screenWidth * .7,
                       child: ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: _options.length,
-                          itemBuilder: (context, i) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  height: 20.h,
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Color(0xFF4F4F4F),
-                                      elevation: 3,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(7.r),
-                                        ),
-                                      ),
-                                      padding: EdgeInsets.all(0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 10.w, bottom: 10.w),
-                                      child: Text(
-                                        _options[i],
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                        ),
-                                      ),
-                                    ),
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _options.length,
+                        itemBuilder: (context, i) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: 20.h,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                primary: Color(0xFF4F4F4F),
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(7.r),
                                   ),
                                 ),
-                              )),
+                                padding: EdgeInsets.all(0),
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.only(top: 10.w, bottom: 10.w),
+                                child: Text(
+                                  _options[i],
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
               Styles.transparentDivider(),
-              Obx(() => _reportController.loadingProcess.value
-                  ? Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.Alpine,
-                      ),
-                    )
-                  : _reportController.fetchUserReportList.isEmpty
-                      ? Center(
-                          child: Text('Not Found Transactions',
-                              style: TextStyle(
-                                  color: AppColors.Alpine, fontSize: 16)),
-                        )
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          itemCount:
-                              _reportController.fetchUserReportList.length,
-                          physics: BouncingScrollPhysics(),
-                          itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Container(
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF4F4F4F),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(7.r),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(15.w),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              "Today",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 18.sp,
-                                                  color: Colors.white),
-                                            ),
-                                            Text(
-                                              _reportController
-                                                  .fetchUserReportList[index]
-                                                  .creationTime
-                                                  .substring(5, 10),
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 14.sp,
-                                                  color: Colors.white),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 8.h,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              "Pandah\nSupermarket",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16.sp,
-                                                  color: Colors.white),
-                                            ),
-                                            Text(
-                                              "+500 SAR",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16.sp,
-                                                color: Color(0xFF4DB6AC),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 8.h,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              "Rent\nIncom",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16.sp,
-                                                  color: Colors.white),
-                                            ),
-                                            Text(
-                                              '+' + totalIn.toString(),
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16.sp,
-                                                color: Color(0xFF4DB6AC),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+              Obx(
+                () => _reportController.loadingProcess.value
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.Alpine,
+                        ),
+                      )
+                    : _reportController.fetchUserReportList.isEmpty
+                        ? Center(
+                            child: Text('Not Found Transactions',
+                                style: TextStyle(
+                                    color: AppColors.Alpine, fontSize: 16)),
+                          )
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            itemCount:
+                                _reportController.fetchUserReportList.length,
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Container(
+                                // height: 150,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF4F4F4F),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(7.r),
                                   ),
                                 ),
-                              ))),
+                                child: Padding(
+                                  padding: EdgeInsets.all(15.w),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Today",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18.sp,
+                                                color: Colors.white),
+                                          ),
+                                          Text(
+                                            _reportController
+                                                .fetchUserReportList[index]
+                                                .creationTime
+                                                .substring(5, 10),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14.sp,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 8.h,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Pandah\nSupermarket",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16.sp,
+                                                color: Colors.white),
+                                          ),
+                                          Text(
+                                            _reportController
+                                                    .fetchUserReportList[index]
+                                                    .amount +
+                                                " SAR",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16.sp,
+                                              color: Color(0xFF4DB6AC),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 8.h,
+                                      ),
+                                      // Row(
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.spaceBetween,
+                                      //   children: [
+                                      //     Text(
+                                      //       "Rent\nIncom",
+                                      //       style: TextStyle(
+                                      //           fontWeight: FontWeight.w600,
+                                      //           fontSize: 16.sp,
+                                      //           color: Colors.white),
+                                      //     ),
+                                      //     // Text(
+                                      //     //   '+' + totalIn.toString(),
+                                      //     //   style: TextStyle(
+                                      //     //     fontWeight: FontWeight.w600,
+                                      //     //     fontSize: 16.sp,
+                                      //     //     color: Color(0xFF4DB6AC),
+                                      //     //   ),
+                                      //     // ),
+                                      //   ],
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+              ),
             ],
           ),
         ),

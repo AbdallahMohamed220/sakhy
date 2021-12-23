@@ -70,7 +70,7 @@ class SignInController extends GetxController {
           textColor: Colors.white,
           fontSize: 16.0,
         );
-        Future.delayed(Duration(seconds: 1), () {
+        Future.delayed(Duration(seconds: 3), () {
           Get.offAll(BottomNavController());
         });
       } else {

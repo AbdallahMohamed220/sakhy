@@ -23,41 +23,49 @@ class NavHomeServices {
     if (response.data == null) {
       return [];
     }
+    print('fetchUserBanks');
     print(response.data);
-    final Map<String, dynamic> productclientaccountsListData = response.data;
-    //productclientaccountsListData.forEach((key, value) {
-    print(response.data['client_id']);
-    if (response.data['client_id'] == GetStorage().read('clientId')) {
-      banksId.add(response.data['bank_id']);
-    }
-    //});
-    print(banksId.length);
-    for (var i = 0; i < banksId.length; i++) {
-      print('bankid' + banksId[i]);
-    }
+
+    final Map<String, dynamic> clientAccountsListData = response.data;
+    clientAccountsListData.forEach(
+      (key, value) {
+        if (value['user_id'] == GetStorage().read('userId')) {
+          final box = GetStorage();
+          box.write("clientId", value['client_id']);
+          banksId.add(value['bank_id']);
+        }
+      },
+    );
 
     List<Account> temp = [];
 
-    Response response2 = await Dio()
-        .get('https://sakhy-7f3ae-default-rtdb.firebaseio.com/accounts.json',
-            options: Options(
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                contentType: "application/x-www-form-urlencoded",
-                followRedirects: false,
-                validateStatus: (status) {
-                  return status! < 500;
-                }));
-    final Map<String, dynamic> productAccountsListData = response2.data;
-    productAccountsListData.forEach((key, value) {
-      for (var i = 0; i < banksId.length; i++) {
-        if (value['client_id'] == GetStorage().read('clientId') &&
-            value['bank_id'] == banksId[i]) {
-          temp.add(Account.fromMap(value));
+    Response response2 = await Dio().get(
+      'https://sakhy-7f3ae-default-rtdb.firebaseio.com/accounts.json',
+      options: Options(
+        headers: {
+          "Content-Type": "application/json",
+        },
+        contentType: "application/x-www-form-urlencoded",
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+    final Map<String, dynamic> userAccountsListData = response2.data;
+
+    userAccountsListData.forEach(
+      (key, value) {
+        for (var i = 0; i < banksId.length; i++) {
+          if (value['client_id'] == GetStorage().read('clientId') &&
+              value['bank_id'] == banksId[i]) {
+            temp.add(Account.fromMap(value));
+          }
         }
-      }
-    });
+      },
+    );
+    print(GetStorage().read('clientId'));
+    print(temp.length);
 
     return temp;
   }
@@ -107,15 +115,12 @@ class NavHomeServices {
                   return status! < 500;
                 }));
     List<Bank> temp = [];
-    print('NavHome responce');
-    print(response.data);
+
     final Map<String, dynamic> productListData =
         response.data as Map<String, dynamic>;
     productListData.forEach((key, value) {
-      print(value);
       temp.add(Bank.fromMap(value));
     });
-    print(response.data);
     return temp;
   }
 }

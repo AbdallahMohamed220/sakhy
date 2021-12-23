@@ -32,31 +32,38 @@ class SignInServices {
 
   static Future<String?> loginInBank(
       String bankId, String email, String password) async {
-    Response response = await Dio()
-        .get('https://sakhy-7f3ae-default-rtdb.firebaseio.com/clients.json',
-            options: Options(
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                contentType: "application/x-www-form-urlencoded",
-                followRedirects: false,
-                validateStatus: (status) {
-                  return status! < 500;
-                }));
+    Response response = await Dio().get(
+      'https://sakhy-7f3ae-default-rtdb.firebaseio.com/clients.json',
+      options: Options(
+        headers: {
+          "Content-Type": "application/json",
+        },
+        contentType: "application/x-www-form-urlencoded",
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+
     final Map<String, dynamic> productListData = response.data;
     String checkUserFound = 'not found';
-    productListData.forEach((key, value) {
-      if (value['email'] == email && value['password'] == password) {
-        final box = GetStorage();
-        box.write("clientId", value['id']);
-        checkUserFound = 'found';
-        addUserBankAccountData(bankId);
-      }
-    });
+    productListData.forEach(
+      (key, value) async {
+        if (value['email'] == email.toLowerCase() &&
+            value['password'] == password &&
+            value['bank_id'] == bankId) {
+          final box = GetStorage();
+          box.write("clientId", value['id']);
+          checkUserFound = 'found';
+          await addUserBankAccountData(bankId);
+        }
+      },
+    );
     return checkUserFound;
   }
 
-  static Future<String?> addUserBankAccountData(String bankId) async {
+  static Future<void> addUserBankAccountData(String bankId) async {
     String accountId = '';
     Response response = await Dio()
         .get('https://sakhy-7f3ae-default-rtdb.firebaseio.com/accounts.json',
@@ -70,14 +77,28 @@ class SignInServices {
                   return status! < 500;
                 }));
     final Map<String, dynamic> productListData = response.data;
-    print(response.data);
     productListData.forEach((key, value) {
       if (value['client_id'] == GetStorage().read('clientId') &&
           value['bank_id'] == bankId) {
         accountId = value['account_id'];
       }
     });
-    await Dio().put(
+
+    Response response2 = await Dio().get(
+      'https://sakhy-7f3ae-default-rtdb.firebaseio.com/client_accounts.json',
+      options: Options(
+        headers: {
+          "Content-Type": "application/json",
+        },
+        contentType: "application/x-www-form-urlencoded",
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+    if (response2.data == null) {
+      await Dio().post(
         'https://sakhy-7f3ae-default-rtdb.firebaseio.com/client_accounts.json',
         data: {
           'account_id': accountId,
@@ -87,6 +108,42 @@ class SignInServices {
           'user_id': GetStorage().read('userId')
         },
         options: Options(
+          headers: {
+            "Content-Type": "application/json",
+          },
+          contentType: "application/x-www-form-urlencoded",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          },
+        ),
+      );
+      return;
+    } else {
+      String isFound = 'not found';
+      final Map<String, dynamic> productListData2 = response2.data;
+
+      productListData2.forEach(
+        (key, value2) async {
+          if (value2['client_id'] == GetStorage().read('clientId') &&
+              value2['bank_id'] == bankId) {
+            isFound = 'found';
+
+            return;
+          }
+        },
+      );
+      if (isFound == 'not found') {
+        await Dio().post(
+          'https://sakhy-7f3ae-default-rtdb.firebaseio.com/client_accounts.json',
+          data: {
+            'account_id': accountId,
+            'bank_id': bankId,
+            'client_id': GetStorage().read('clientId'),
+            'id': "",
+            'user_id': GetStorage().read('userId')
+          },
+          options: Options(
             headers: {
               "Content-Type": "application/json",
             },
@@ -94,6 +151,10 @@ class SignInServices {
             followRedirects: false,
             validateStatus: (status) {
               return status! < 500;
-            }));
+            },
+          ),
+        );
+      }
+    }
   }
 }

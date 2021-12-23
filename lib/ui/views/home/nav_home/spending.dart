@@ -2,9 +2,12 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sakhy/ui/styles/styles.dart';
+import 'package:sakhy/ui/views/home/nav_home/nav_home_services.dart';
+import 'package:sakhy/ui/views/reports/report_controller.dart';
 
 class Spending extends StatefulWidget {
   @override
@@ -27,6 +30,19 @@ class _SpendingState extends State<Spending> {
   int touchedIndex = -1;
 
   bool isPlaying = false;
+  ReportController _reportController = Get.put(ReportController());
+
+  @override
+  void initState() {
+    super.initState();
+    initValues();
+  }
+
+  initValues() async {
+    print(DateTime.now().toString().substring(5, 7));
+    await _reportController
+        .fetchUserReport(DateTime.now().toString().substring(5, 7));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,13 +97,12 @@ class _SpendingState extends State<Spending> {
                   )),
                 ),
                 title: Text(
-                  "10000 SAR",
+                  totalOut.toString() + " SAR",
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w400,
                       fontSize: 16.sp),
                 ),
-                
                 dense: true,
               ),
               Styles.transparentDivider(),
@@ -109,87 +124,202 @@ class _SpendingState extends State<Spending> {
               Styles.transparentDivider(),
               Styles.headingText("Total Out"),
               Styles.transparentDivider(),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFF4F4F4F),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(7.r),
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(20.w),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Today",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18.sp,
-                                color: Colors.white),
-                          ),
-                          Text(
-                            "28/8",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14.sp,
-                                color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Pandah\nSupermarket",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.sp,
-                                color: Colors.white),
-                          ),
-                          Text(
-                            "+500 SAR",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                              color: Color(0xFF4DB6AC),
+              Obx(
+                () => _reportController.loadingProcess.value
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.Alpine,
+                        ),
+                      )
+                    : _reportController.fetchUserReportList.isEmpty
+                        ? Center(
+                            child: Text('Not Found Transactions',
+                                style: TextStyle(
+                                    color: AppColors.Alpine, fontSize: 16)),
+                          )
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            itemCount:
+                                _reportController.fetchUserReportList.length,
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Container(
+                                // height: 150,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF4F4F4F),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(7.r),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(15.w),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Today",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18.sp,
+                                                color: Colors.white),
+                                          ),
+                                          Text(
+                                            _reportController
+                                                .fetchUserReportList[index]
+                                                .creationTime
+                                                .substring(5, 10),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14.sp,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 8.h,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Pandah\nSupermarket",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16.sp,
+                                                color: Colors.white),
+                                          ),
+                                          Text(
+                                            _reportController
+                                                    .fetchUserReportList[index]
+                                                    .amount +
+                                                " SAR",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16.sp,
+                                              color: Color(0xFF4DB6AC),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 8.h,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          // Text(
+                                          //   "Rent\nIncom",
+                                          //   style: TextStyle(
+                                          //       fontWeight: FontWeight.w600,
+                                          //       fontSize: 16.sp,
+                                          //       color: Colors.white),
+                                          // ),
+                                          // Text(
+                                          //   '+' + totalIn.toString(),
+                                          //   style: TextStyle(
+                                          //     fontWeight: FontWeight.w600,
+                                          //     fontSize: 16.sp,
+                                          //     color: Color(0xFF4DB6AC),
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Rent\nIncome",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.sp,
-                                color: Colors.white),
-                          ),
-                          Text(
-                            "+1000 SAR",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                              color: Color(0xFF4DB6AC),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
               ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: Color(0xFF4F4F4F),
+              //     borderRadius: BorderRadius.all(
+              //       Radius.circular(7.r),
+              //     ),
+              //   ),
+              //   child: Padding(
+              //     padding: EdgeInsets.all(20.w),
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Text(
+              //               "Today",
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w600,
+              //                   fontSize: 18.sp,
+              //                   color: Colors.white),
+              //             ),
+              //             Text(
+              //               "28/8",
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w400,
+              //                   fontSize: 14.sp,
+              //                   color: Colors.white),
+              //             ),
+              //           ],
+              //         ),
+              //         SizedBox(
+              //           height: 8.h,
+              //         ),
+              //         Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Text(
+              //               "Pandah\nSupermarket",
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w600,
+              //                   fontSize: 14.sp,
+              //                   color: Colors.white),
+              //             ),
+              //             Text(
+              //               "+500 SAR",
+              //               style: TextStyle(
+              //                 fontWeight: FontWeight.w600,
+              //                 fontSize: 14.sp,
+              //                 color: Color(0xFF4DB6AC),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //         SizedBox(
+              //           height: 8.h,
+              //         ),
+              //         Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Text(
+              //               "Rent\nIncome",
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w600,
+              //                   fontSize: 14.sp,
+              //                   color: Colors.white),
+              //             ),
+              //             Text(
+              //               "+1000 SAR",
+              //               style: TextStyle(
+              //                 fontWeight: FontWeight.w600,
+              //                 fontSize: 14.sp,
+              //                 color: Color(0xFF4DB6AC),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
