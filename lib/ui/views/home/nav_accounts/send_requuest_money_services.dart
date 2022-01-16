@@ -49,7 +49,7 @@ class SendRequestMoneyServices {
       productListData.forEach(
         (key, value) async {
           if (value['client_id'] == GetStorage().read('clientId') &&
-              value['account_type'] == 'CURRENT') {
+              value['account_type'] == 'CURRENT ACCOUNT') {
             if (int.parse(value['balance']) < int.parse(amount) ||
                 requestResponce == 'success') {
               requestResponce = 'your balnce is less than amount';

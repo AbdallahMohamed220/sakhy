@@ -10,6 +10,7 @@ import 'package:sakhy/ui/widgets/bank_card.dart';
 
 class CardDetails extends StatefulWidget {
   final String bankName;
+  final String accountType;
   final String bankBalance;
   final String iban;
   final String color;
@@ -17,6 +18,7 @@ class CardDetails extends StatefulWidget {
   const CardDetails(
       {Key? key,
       required this.bankName,
+      required this.accountType,
       required this.bankBalance,
       required this.iban,
       required this.color})
@@ -56,6 +58,7 @@ class _CardDetailsState extends State<CardDetails> {
               children: [
                 bankCard(
                     widget.bankName,
+                    widget.accountType,
                     widget.bankBalance,
                     int.parse(widget.color),
                     widget.bankBalance,

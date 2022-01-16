@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:sakhy/models/account.dart';
 import 'package:sakhy/ui/const/app_colors.dart';
 import 'package:sakhy/ui/styles/styles.dart';
 import 'package:sakhy/ui/views/home/nav_accounts/nav_accountS_controller.dart';
@@ -109,6 +108,8 @@ class _SendMoneyState extends State<SendMoney> {
                                       .fetchedAccountList[i].cardNumber,
                                   _navAccountController
                                       .fetchedAccountList[i].bankName,
+                                  _navAccountController
+                                      .fetchedAccountList[i].accountType,
                                   "${_navAccountController.fetchedAccountList[i].balance} SAR",
                                   _navAccountController
                                       .fetchedAccountList[i].bankLogo,

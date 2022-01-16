@@ -252,7 +252,7 @@ class _RequestMoneyState extends State<RequestMoney> {
                                 .map((e) {
                               return DropdownMenuItem(
                                 child: Text(
-                                  e.bankName,
+                                  e.bankName + ' (' + e.accountType + ')',
                                   style: TextStyle(
                                       color: AppColors.Alpine,
                                       fontWeight: FontWeight.w600,

@@ -214,6 +214,8 @@ class _NavHomeState extends State<NavHome> {
                           child: smallBankCard(
                             _navHomeController
                                 .fetchedUserBankList[index].bankName,
+                            _navHomeController
+                                .fetchedUserBankList[index].accountType,
                             int.parse(_navHomeController
                                 .fetchedUserBankList[index].color),
                             Icons.ac_unit_outlined,
@@ -227,6 +229,8 @@ class _NavHomeState extends State<NavHome> {
                               CardDetails(
                                 bankName: _navAccountController
                                     .fetchedAccountList[index].bankName,
+                                accountType: _navAccountController
+                                    .fetchedAccountList[index].accountType,
                                 bankBalance: _navAccountController
                                     .fetchedAccountList[index].balance,
                                 iban: _navAccountController

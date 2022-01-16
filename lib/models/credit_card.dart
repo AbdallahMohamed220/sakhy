@@ -6,6 +6,7 @@ class CreditCard {
   final String color;
   final String cvv;
   final String expDate;
+  final String name;
 
   CreditCard({
     required this.cardNumber,
@@ -13,6 +14,7 @@ class CreditCard {
     required this.color,
     required this.cvv,
     required this.expDate,
+    required this.name,
   });
 
   factory CreditCard.fromMap(Map<String, dynamic> map) {
@@ -22,6 +24,7 @@ class CreditCard {
       color: map['color'],
       cvv: map['cvv'],
       expDate: map['exp_date'],
+      name: map['name'],
     );
   }
 }

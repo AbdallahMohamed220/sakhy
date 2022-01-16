@@ -117,8 +117,8 @@ Widget banksCard(bankName, color, identifier, imagePath, onClick, context) {
   );
 }
 
-Widget bankCard(
-    bankName, bankBalance, color, availableBalance, iban, onClick, context) {
+Widget bankCard(bankName, accountType, bankBalance, color, availableBalance,
+    iban, onClick, context) {
   return Padding(
     padding: EdgeInsets.only(bottom: 15.h),
     child: Container(
@@ -160,19 +160,33 @@ Widget bankCard(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                bankName,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14.sp,
-                  color: Colors.white,
-                  letterSpacing: 1.8.sp,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    bankName,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14.sp,
+                      color: Colors.white,
+                      letterSpacing: 1.8.sp,
+                    ),
+                  ),
+                  Text(
+                    accountType,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14.sp,
+                      color: Colors.white,
+                      letterSpacing: 1.8.sp,
+                    ),
+                  ),
+                ],
               ),
               Row(
                 children: [
                   Text(
-                    "Bank Balance",
+                    "Available Balance",
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 12.sp,
@@ -197,7 +211,7 @@ Widget bankCard(
               Row(
                 children: [
                   Text(
-                    "Available Balance",
+                    "Current Balance",
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 12.sp,
@@ -282,8 +296,8 @@ Widget bankCard(
   );
 }
 
-Widget sakhyCard(
-    color, cardNumber, bankName, balance, imagePath, onClick, context) {
+Widget sakhyCard(color, cardNumber, bankName, accountType, balance, imagePath,
+    onClick, context) {
   return Padding(
     padding: EdgeInsets.only(bottom: 15.h),
     child: Container(
@@ -476,6 +490,20 @@ Widget sakhyCard(
                       ),
                     ],
                   ),
+                  Spacer(
+                    flex: 5,
+                  ),
+                  Text(
+                    accountType,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16.sp,
+                      color: AppColors.Alpine,
+                    ),
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
                   GestureDetector(
                     child: Image.asset(
                       "assets/icons/settings-icon.png",
@@ -507,8 +535,8 @@ Widget sakhyCard(
   );
 }
 
-Widget smallBankCard(
-    bankName, color, icon, balance, cardNumber, imagePath, onClick, context) {
+Widget smallBankCard(bankName, accountType, color, icon, balance, cardNumber,
+    imagePath, onClick, context) {
   return Padding(
     padding: EdgeInsets.only(bottom: 15.h),
     child: Container(
@@ -544,82 +572,107 @@ Widget smallBankCard(
         // ),
       ),
       child: ElevatedButton(
-        child: Padding(
-          padding:
-              EdgeInsets.only(top: 10.h, bottom: 10.h, left: 15.w, right: 15.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  top: 10.h, bottom: 10.h, left: 15.w, right: 15.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    bankName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14.sp,
-                      color: Colors.white,
-                      letterSpacing: 1.8.sp,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    cardNumber,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                      color: Colors.white,
-                      letterSpacing: 1.8.sp,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    GetStorage().read('userName'),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16.sp,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  Row(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 10.w),
-                        child: Icon(
-                          Icons.web,
-                          color: Colors.white,
-                          size: 18.w,
-                        ),
-                      ),
                       Text(
-                        "Balance ",
+                        bankName,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14.sp,
                           color: Colors.white,
+                          letterSpacing: 1.8.sp,
                         ),
                       ),
+                      SizedBox(
+                        height: 8,
+                      ),
                       Text(
-                        balance + ' SAR',
+                        cardNumber,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                          color: Colors.white,
+                          letterSpacing: 1.8.sp,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        GetStorage().read('userName'),
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16.sp,
                           color: Colors.white,
                         ),
                       ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Container(
+                        width: ScreenUtil().screenWidth * 0.5,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 10.w),
+                              child: Icon(
+                                Icons.web,
+                                color: Colors.white,
+                                size: 18.w,
+                              ),
+                            ),
+                            Text(
+                              "Balance ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.sp,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              balance + ' SAR',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.sp,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
+
+                  // CircleAvatar(
+                  //   radius: 30,
+                  //   backgroundImage: NetworkImage(
+                  //     imagePath,
+                  //     scale: 1,
+                  //   ),
+                  //   backgroundColor: Color(0xFF1C1C1C),
+                  // )
+                  // Icon(
+                  //   icon,
+                  //   color: Colors.white,
+                  //   size: 24.w,
+                  // ),
                 ],
               ),
-              Container(
+            ),
+            Positioned(
+              top: 10,
+              right: 20,
+              child: Container(
                 width: 70,
                 height: 70,
                 decoration: BoxDecoration(shape: BoxShape.circle),
@@ -627,22 +680,21 @@ Widget smallBankCard(
                   imagePath,
                   fit: BoxFit.contain,
                 ),
-              )
-              // CircleAvatar(
-              //   radius: 30,
-              //   backgroundImage: NetworkImage(
-              //     imagePath,
-              //     scale: 1,
-              //   ),
-              //   backgroundColor: Color(0xFF1C1C1C),
-              // )
-              // Icon(
-              //   icon,
-              //   color: Colors.white,
-              //   size: 24.w,
-              // ),
-            ],
-          ),
+              ),
+            ),
+            Positioned(
+              right: 14,
+              bottom: 13,
+              child: Text(
+                accountType,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14.sp,
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
         ),
         onPressed: onClick,
         style: ElevatedButton.styleFrom(
@@ -694,100 +746,120 @@ Widget creditCard(cardNumber, color, expDate) {
         ),
       ),
       child: ElevatedButton(
-        child: Padding(
-          padding:
-              EdgeInsets.only(top: 10.h, bottom: 10.h, left: 15.w, right: 15.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  top: 10.h, bottom: 10.h, left: 15.w, right: 15.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 10.w),
-                        child: Icon(
-                          Icons.person_outlined,
-                          color: Colors.white,
-                          size: 18.w,
-                        ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 10.w),
+                            child: Icon(
+                              Icons.person_outlined,
+                              color: Colors.white,
+                              size: 18.w,
+                            ),
+                          ),
+                          Text(
+                            GetStorage().read('userName'),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.sp,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        GetStorage().read('userName'),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16.sp,
-                          color: Colors.white,
-                        ),
+                      SizedBox(
+                        height: 7,
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 10.w),
-                        child: Icon(
-                          Icons.web,
-                          color: Colors.white,
-                          size: 18.w,
-                        ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 10.w),
+                            child: Icon(
+                              Icons.web,
+                              color: Colors.white,
+                              size: 18.w,
+                            ),
+                          ),
+                          Text(
+                            cardNumber,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14.sp,
+                              color: Colors.white,
+                              letterSpacing: 1.8.sp,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        cardNumber,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14.sp,
-                          color: Colors.white,
-                          letterSpacing: 1.8.sp,
-                        ),
+                      SizedBox(
+                        height: 7,
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 10.w),
-                        child: Icon(
-                          Icons.date_range_rounded,
-                          color: Colors.white,
-                          size: 18.w,
-                        ),
-                      ),
-                      Text(
-                        "Expiry Date ",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Text(
-                        expDate.toString(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16.sp,
-                          color: Colors.white,
-                        ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 10.w),
+                            child: Icon(
+                              Icons.date_range_rounded,
+                              color: Colors.white,
+                              size: 18.w,
+                            ),
+                          ),
+                          Text(
+                            "Expiry Date ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14.sp,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            expDate.toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.sp,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ],
               ),
-              Icon(
+            ),
+            Positioned(
+              top: 20,
+              right: 15,
+              child: Icon(
                 Icons.ac_unit_outlined,
                 color: Colors.white,
                 size: 24.w,
               ),
-            ],
-          ),
+            ),
+            Positioned(
+              right: 15,
+              bottom: 12,
+              child: Text(
+                'CREDIT CARD',
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
         ),
         onPressed: () {},
         style: ElevatedButton.styleFrom(

@@ -98,17 +98,16 @@ class _DonationState extends State<Donation> {
                           accountBalance = newValue.balance;
                         });
                       },
-                      items: _navAccountController.fetchedAccountList
-                          .map((location) {
+                      items: _navAccountController.fetchedAccountList.map((e) {
                         return DropdownMenuItem(
                           child: Text(
-                            location.accountName,
+                            e.bankName + ' (' + e.accountType + ')',
                             style: TextStyle(
                                 color: AppColors.Alpine,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 15.sp),
                           ),
-                          value: location,
+                          value: e,
                         );
                       }).toList(),
                     ),

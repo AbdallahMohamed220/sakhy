@@ -91,7 +91,7 @@ class AccountAggregatorServices {
     productListData.forEach(
       (key, value) async {
         if (value['client_id'] == GetStorage().read('clientId') &&
-            value['account_type'] == 'CURRENT' &&
+            value['account_type'] == 'CURRENT ACCOUNT' &&
             value['account_name'] != 'Sakhy Card' &&
             requestResponce == 'success') {
           String balance = '0';
